@@ -34,7 +34,9 @@ public class IttyBotty {
     }
     
     private static void exit() {
+        IttyBotty.printHorizontalLine();
         System.out.println("Bye. Hope to see you again soon!");
+        IttyBotty.printHorizontalLine();
     }
     
     private static void printHorizontalLine() {
