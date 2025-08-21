@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
     private static final String EXIT_COMMAND = "bye";
+    private static final String LIST_COMMAND = "list";
+    private static final TaskList TASK_LIST = new TaskList();
     
     public static void main(String[] args) {
         IttyBotty.greetUser();
@@ -11,11 +13,18 @@ public class IttyBotty {
         Scanner scanner = new Scanner(System.in);
         while (!hasExited) {
             String userInput = scanner.nextLine();
-            if (userInput.equals(IttyBotty.EXIT_COMMAND)) {
-                IttyBotty.exit();
-                hasExited = true;
-            } else {
-                IttyBotty.echo(userInput);
+            IttyBotty.printHorizontalLine();
+            switch (userInput) {
+                case IttyBotty.LIST_COMMAND -> System.out.println(TASK_LIST);
+                case IttyBotty.EXIT_COMMAND -> {
+                    IttyBotty.exit();
+                    hasExited = true;
+                }
+                default -> {
+                    Task newTask = new Task(userInput);
+                    IttyBotty.TASK_LIST.addTask(newTask);
+                    System.out.println("added: " + newTask);
+                }
             }
         }
     }
