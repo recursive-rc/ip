@@ -1,15 +1,15 @@
-public class Duke {
+public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
     
     public static void main(String[] args) {
-        Duke.greetUser();
+        IttyBotty.greetUser();
     }
     
     private static void greetUser() {
-        Duke.printHorizontalLine();
-        System.out.println("Hello! I'm " + Duke.CHATBOT_NAME);
+        IttyBotty.printHorizontalLine();
+        System.out.println("Hello! I'm " + IttyBotty.CHATBOT_NAME);
         System.out.println("What can I do for you?");
-        Duke.printHorizontalLine();
+        IttyBotty.printHorizontalLine();
     }
     
     private static void exit() {
