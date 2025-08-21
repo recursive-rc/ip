@@ -3,6 +3,7 @@ public class IttyBotty {
     
     public static void main(String[] args) {
         IttyBotty.greetUser();
+        IttyBotty.exit();
     }
     
     private static void greetUser() {
