@@ -1,5 +1,5 @@
 public class Duke {
-    private static final String CHATBOT_NAME = "Duke";
+    private static final String CHATBOT_NAME = "Itty-Botty";
     
     public static void main(String[] args) {
         Duke.greetUser();
