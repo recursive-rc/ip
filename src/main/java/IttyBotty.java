@@ -36,12 +36,6 @@ public class IttyBotty {
         IttyBotty.printHorizontalLine();
     }
     
-    private static void echo(String userInput) {
-        IttyBotty.printHorizontalLine();
-        System.out.println(userInput);
-        IttyBotty.printHorizontalLine();
-    }
-    
     private static void exit() {
         IttyBotty.printHorizontalLine();
         System.out.println("Bye. Hope to see you again soon!");
