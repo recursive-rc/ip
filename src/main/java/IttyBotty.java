@@ -13,9 +13,9 @@ public class IttyBotty {
         Scanner scanner = new Scanner(System.in);
         while (!hasExited) {
             String userInput = scanner.nextLine();
-            IttyBotty.printHorizontalLine();
             switch (userInput) {
-                case IttyBotty.LIST_COMMAND -> System.out.println(TASK_LIST);
+                case IttyBotty.LIST_COMMAND ->
+                        printFancyOutput(TASK_LIST.toString());
                 case IttyBotty.EXIT_COMMAND -> {
                     IttyBotty.exit();
                     hasExited = true;
@@ -23,27 +23,38 @@ public class IttyBotty {
                 default -> {
                     Task newTask = new Task(userInput);
                     IttyBotty.TASK_LIST.addTask(newTask);
-                    System.out.println("added: " + newTask);
+                    printFancyOutput("added: " + newTask);
                 }
             }
         }
     }
     
     private static void greetUser() {
-        IttyBotty.printHorizontalLine();
-        System.out.println("Hello! I'm " + IttyBotty.CHATBOT_NAME);
-        System.out.println("What can I do for you?");
-        IttyBotty.printHorizontalLine();
+        String greeting = "Hello! I'm " + IttyBotty.CHATBOT_NAME
+                + "\nWhat can I do for you?";
+        printFancyOutput(greeting);
     }
     
     private static void exit() {
-        IttyBotty.printHorizontalLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        IttyBotty.printHorizontalLine();
+        printFancyOutput("Bye. Hope to see you again soon!");
     }
     
-    private static void printHorizontalLine() {
-        System.out.println("_____________________________________________" +
-                "_______________");
+    /**
+     * Prints output with indents and surrounded by
+     * horizontal lines.
+     *
+     * @param output String to be formatted.
+     */
+    private static void printFancyOutput(String output) {
+        final String indent = "    ";
+        final String horizontalLine =
+                "____________________________________________________________";
+        final StringBuilder builder = new StringBuilder();
+        builder.append(indent).append(horizontalLine).append('\n');
+        for (String line : output.split("\n")) {
+            builder.append(indent).append(line).append('\n');
+        }
+        builder.append(indent).append(horizontalLine);
+        System.out.println(builder);
     }
 }
