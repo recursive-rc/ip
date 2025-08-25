@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
-    private static final TaskList TASK_LIST = new TaskList();
+    private static final TaskList taskList = new TaskList();
     
     public static void main(String[] args) {
         IttyBotty.greetUser();
