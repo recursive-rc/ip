@@ -15,7 +15,44 @@ public class IttyBotty {
         while (!hasExited) {
             String userInput = scanner.nextLine();
             UserCommand command = parser.parseInput(userInput);
-            System.out.println(command);  // TODO: actually handle command
+            // TODO: Use dynamic binding to replace instanceof checks below
+            if (command instanceof AddTaskCommand addTaskCommand) {
+                Task newTask = new Task(addTaskCommand.getTaskName());
+                taskList.add(newTask);
+                IttyBotty.printFancyOutput(
+                        "Successfully added the following task: "
+                                + newTask.getName());
+            } else if (command instanceof MarkTaskCommand markCommand) {
+                Task taskToMark = taskList.get(markCommand.getTaskIndex() - 1);
+                // - 1 because 0-indexed
+                taskToMark.markDone();
+                IttyBotty.printFancyOutput("Good job! " +
+                        "The task below is recorded as done!\n" +
+                        taskToMark);
+            } else if (command instanceof UnmarkTaskCommand unmarkCommand) {
+                Task taskToUnmark = taskList.get(unmarkCommand.getTaskIndex() - 1);
+                // - 1 because 0-indexed
+                taskToUnmark.unmarkDone();
+                IttyBotty.printFancyOutput("Alright, " +
+                        "The task below has been unmarked!\n" +
+                        taskToUnmark);
+            } else if (command instanceof ListCommand) {
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < taskList.size(); i++) {
+                    int taskNum = i + 1;
+                    builder.append(taskNum).append(". ")
+                            .append(taskList.get(i));
+                    if (taskNum != taskList.size()) {
+                        builder.append('\n');
+                    }
+                }
+                IttyBotty.printFancyOutput(builder.toString());
+            } else if (command instanceof ExitCommand) {
+                IttyBotty.exit();
+                hasExited = true;
+            } else {
+                throw new IllegalStateException("Unknown user command.");
+            }
         }
     }
     
