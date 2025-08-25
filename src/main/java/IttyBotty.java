@@ -2,8 +2,6 @@ import java.util.Scanner;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
-    private static final String EXIT_COMMAND = "bye";
-    private static final String LIST_COMMAND = "list";
     private static final TaskList TASK_LIST = new TaskList();
     
     public static void main(String[] args) {
@@ -11,21 +9,11 @@ public class IttyBotty {
         
         boolean hasExited = false;
         Scanner scanner = new Scanner(System.in);
+        InputParser parser = new InputParser();
         while (!hasExited) {
             String userInput = scanner.nextLine();
-            switch (userInput) {
-                case IttyBotty.LIST_COMMAND ->
-                        printFancyOutput(TASK_LIST.toString());
-                case IttyBotty.EXIT_COMMAND -> {
-                    IttyBotty.exit();
-                    hasExited = true;
-                }
-                default -> {
-                    Task newTask = new Task(userInput);
-                    IttyBotty.TASK_LIST.addTask(newTask);
-                    printFancyOutput("added: " + newTask);
-                }
-            }
+            UserCommand command = parser.parseInput(userInput);
+            System.out.println(command);  // TODO: actually handle command
         }
     }
     
