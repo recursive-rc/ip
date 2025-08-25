@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
-    private static final TaskList taskList = new TaskList();
+    private static final List<Task> taskList = new ArrayList<>();
     
     public static void main(String[] args) {
         IttyBotty.greetUser();
