@@ -5,6 +5,10 @@ public final class MarkTaskCommand extends UserCommand {
         this.taskIndex = taskIndex;
     }
     
+    public int getTaskIndex() {
+        return taskIndex;
+    }
+    
     @Override
     public String toString() {
         return "MarkTaskCommand{" +

@@ -5,6 +5,10 @@ public final class AddTaskCommand extends UserCommand {
         this.taskName = taskName;
     }
     
+    public String getTaskName() {
+        return taskName;
+    }
+    
     @Override
     public String toString() {
         return "AddTaskCommand{" +
