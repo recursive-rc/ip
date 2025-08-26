@@ -32,6 +32,9 @@ public final class InputParser {
                     input.replaceAll("\\D", ""));
             return new UnmarkTaskCommand(taskIndex);
         } else if (input.matches(InputParser.ADD_TODO_REGEX)) {
+            if (input.strip().equals("todo")) {
+                throw new EmptyDescriptionException("ToDo");
+            }
             final String taskName = input.replaceFirst("todo\\s+", "");
             final ToDo newTask = new ToDo(taskName);
             return new AddTaskCommand(newTask);

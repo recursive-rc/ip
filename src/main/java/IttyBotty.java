@@ -14,7 +14,14 @@ public class IttyBotty {
         InputParser parser = new InputParser();
         while (!hasExited) {
             String userInput = scanner.nextLine();
-            UserCommand command = parser.parseInput(userInput);
+            UserCommand command;
+            try {
+                command = parser.parseInput(userInput);
+            } catch (EmptyDescriptionException e) {
+                IttyBotty.printFancyOutput("Oh no! The " + e.getTaskType() +
+                        " description is empty.");
+                continue;
+            }
             // TODO: Use dynamic binding to replace instanceof checks below
             if (command instanceof AddTaskCommand addTaskCommand) {
                 Task newTask = addTaskCommand.getTask();
