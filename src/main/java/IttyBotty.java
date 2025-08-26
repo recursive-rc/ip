@@ -21,6 +21,10 @@ public class IttyBotty {
                 IttyBotty.printFancyOutput("Oh no! The " + e.getTaskType() +
                         " description is empty.");
                 continue;
+            } catch (IllegalArgumentException e) {
+                IttyBotty.printFancyOutput("Oh no! IttyBotty does not " +
+                        "recognise this command.");
+                continue;
             }
             // TODO: Use dynamic binding to replace instanceof checks below
             if (command instanceof AddTaskCommand addTaskCommand) {
