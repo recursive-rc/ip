@@ -17,11 +17,13 @@ public class IttyBotty {
             UserCommand command = parser.parseInput(userInput);
             // TODO: Use dynamic binding to replace instanceof checks below
             if (command instanceof AddTaskCommand addTaskCommand) {
-                Task newTask = new Task(addTaskCommand.getTaskName());
+                Task newTask = addTaskCommand.getTask();
                 taskList.add(newTask);
                 IttyBotty.printFancyOutput(
-                        "Successfully added the following task: "
-                                + newTask.getName());
+                        "Successfully added the following task:\n" +
+                                newTask +
+                                "\nYou now have " + taskList.size() +
+                                " tasks stored.");
             } else if (command instanceof MarkTaskCommand markCommand) {
                 Task taskToMark = taskList.get(markCommand.getTaskIndex() - 1);
                 // - 1 because 0-indexed

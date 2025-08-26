@@ -3,28 +3,16 @@ public final class InputParser {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND_REGEX = "mark\\s+[0-9]+";
     private static final String UNMARK_COMMAND_REGEX = "unmark\\s+[0-9]+";
+    private static final String ADD_TODO_REGEX = "todo\\s+.+";
+    private static final String ADD_DEADLINE_REGEX = "deadline\\s+.+/by\\s+.+";
+    private static final String ADD_EVENT_REGEX =
+            "event\\s+.+/from\\s+.+/to\\s+.+";
     
     /**
      * Parses user input to get corresponding user command object.
      *
-     * <p>Parsing based on the following rules:</p>
+     * <p>Whitespace characters at either end of user input are ignored.</p>
      *
-     * <ul>
-     *     <li>If input contains <em>only</em> the word "list",
-     *     then returns a {@link ListCommand} object.</li>
-     *     <li>If input contains <em>only</em> the word "bye",
-     *     then returns a {@link ExitCommand} object.</li>
-     *     <li>If input is "mark" or "unmark" followed by an integer,
-     *     then returns a {@link MarkTaskCommand} or
-     *     {@link UnmarkTaskCommand} respectively with the
-     *     integer as the index of the task to be removed. Multiple
-     *     whitespaces between "mark"/"unmark" and the integer
-     *     are allowed to accommodate for user typos.</li>
-     *     <li>Otherwise, returns an {@link AddTaskCommand}
-     *     with the input as the name of the task to be added.</li>
-     * </ul>
-     *
-     * Whitespace characters at either end of user input are ignored.
      * @param input User input to parse.
      */
     public UserCommand parseInput(String input) {
@@ -43,8 +31,28 @@ public final class InputParser {
             final int taskIndex = Integer.parseInt(
                     input.replaceAll("\\D", ""));
             return new UnmarkTaskCommand(taskIndex);
+        } else if (input.matches(InputParser.ADD_TODO_REGEX)) {
+            final String taskName = input.replaceFirst("todo\\s+", "");
+            final ToDo newTask = new ToDo(taskName);
+            return new AddTaskCommand(newTask);
+        } else if (input.matches(InputParser.ADD_DEADLINE_REGEX)) {
+            // Current assumption: only one instance of "/by" in input
+            final String taskName = input.replaceFirst("deadline\\s+", "")
+                    .replaceFirst("\\s+/by.+", "");
+            final String deadline = input.replaceFirst(".+/by\\s+", "");
+            final TaskWithDeadline newTask = new TaskWithDeadline(taskName, deadline);
+            return new AddTaskCommand(newTask);  // TODO
+        } else if (input.matches(InputParser.ADD_EVENT_REGEX)) {
+            final String taskName = input.replaceFirst("event\\s+", "")
+                    .replaceFirst("\\s+/from.+", "");
+            final String startDateTime = input.replaceFirst(".+/from\\s+", "")
+                    .replaceFirst("/to.+", "")
+                    .strip();
+            final String endDateTime = input.replaceFirst(".+/to\\s+", "");
+            final Event newTask = new Event(taskName, startDateTime, endDateTime);
+            return new AddTaskCommand(newTask);
         } else {
-            return new AddTaskCommand(input);
+            throw new IllegalArgumentException("Invalid user input");
         }
     }
     

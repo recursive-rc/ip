@@ -1,18 +1,18 @@
 public final class AddTaskCommand extends UserCommand {
-    private final String taskName;
+    private final Task taskToAdd;
     
-    public AddTaskCommand(String taskName) {
-        this.taskName = taskName;
+    public AddTaskCommand(Task taskToAdd) {
+        this.taskToAdd = taskToAdd;
     }
     
-    public String getTaskName() {
-        return taskName;
+    public Task getTask() {
+        return this.taskToAdd;
     }
     
     @Override
     public String toString() {
         return "AddTaskCommand{" +
-                "taskName='" + taskName + '\'' +
+                "taskToAdd='" + this.taskToAdd + '\'' +
                 '}';
     }
 }
