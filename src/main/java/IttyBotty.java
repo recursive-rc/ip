@@ -65,6 +65,14 @@ public class IttyBotty {
             } else if (command instanceof ExitCommand) {
                 IttyBotty.exit();
                 hasExited = true;
+            } else if (command instanceof DeleteCommand deleteCommand) {
+                final int deleteIndex = deleteCommand.getTaskIndex() - 1;
+                // - 1 because 0-indexed
+                final Task deletedTask = taskList.get(deleteIndex);
+                taskList.remove(deleteIndex);
+                IttyBotty.printFancyOutput("Successfully deleted:\n" +
+                        deletedTask +
+                        "\nYou have " + taskList.size() + " tasks remaining.");
             } else {
                 throw new IllegalStateException("Unknown user command.");
             }
