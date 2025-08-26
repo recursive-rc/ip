@@ -37,6 +37,7 @@ public class IttyBotty {
                                 " tasks stored.");
             } else if (command instanceof MarkTaskCommand markCommand) {
                 Task taskToMark = taskList.get(markCommand.getTaskIndex() - 1);
+                // TODO: handle IndexOutOfBoundsException
                 // - 1 because 0-indexed
                 taskToMark.markDone();
                 IttyBotty.printFancyOutput("Good job! " +
@@ -44,6 +45,7 @@ public class IttyBotty {
                         taskToMark);
             } else if (command instanceof UnmarkTaskCommand unmarkCommand) {
                 Task taskToUnmark = taskList.get(unmarkCommand.getTaskIndex() - 1);
+                // TODO: handle IndexOutOfBoundsException
                 // - 1 because 0-indexed
                 taskToUnmark.unmarkDone();
                 IttyBotty.printFancyOutput("Alright, " +
