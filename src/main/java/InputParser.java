@@ -8,6 +8,7 @@ public final class InputParser {
     private static final String ADD_DEADLINE_REGEX = "deadline.*";
     private static final String ADD_EVENT_REGEX =
             "event.*";
+    private static final String DELETE_COMMAND_REGEX = "delete.*";
     
     /**
      * Parses user input to get corresponding user command object.
@@ -63,6 +64,11 @@ public final class InputParser {
             // TODO: Handle empty description
             // TODO: Handle missing "/from" and/or "/to"
             // TODO: Handle empty start/end dates/times
+        } else if (input.matches(InputParser.DELETE_COMMAND_REGEX)) {
+            final int taskIndex = Integer.parseInt(
+                    input.replaceAll("\\D", ""));
+            // TODO: handle missing/non-integer index
+            return new DeleteCommand(taskIndex);
         } else {
             throw new IllegalArgumentException("Invalid user input");
         }
