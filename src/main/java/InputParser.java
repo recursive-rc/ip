@@ -3,10 +3,10 @@ public final class InputParser {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND_REGEX = "mark\\s+[0-9]+";
     private static final String UNMARK_COMMAND_REGEX = "unmark\\s+[0-9]+";
-    private static final String ADD_TODO_REGEX = "todo\\s+.+";
-    private static final String ADD_DEADLINE_REGEX = "deadline\\s+.+/by\\s+.+";
+    private static final String ADD_TODO_REGEX = "todo.*";
+    private static final String ADD_DEADLINE_REGEX = "deadline.*";
     private static final String ADD_EVENT_REGEX =
-            "event\\s+.+/from\\s+.+/to\\s+.+";
+            "event.*";
     
     /**
      * Parses user input to get corresponding user command object.
