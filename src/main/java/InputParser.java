@@ -1,6 +1,7 @@
 public final class InputParser {
     private static final String EXIT_COMMAND = "bye";
     private static final String LIST_COMMAND = "list";
+    // TODO: make mark/unmark commands' regex more generic
     private static final String MARK_COMMAND_REGEX = "mark\\s+[0-9]+";
     private static final String UNMARK_COMMAND_REGEX = "unmark\\s+[0-9]+";
     private static final String ADD_TODO_REGEX = "todo.*";
@@ -26,10 +27,12 @@ public final class InputParser {
         } else if (input.matches(InputParser.MARK_COMMAND_REGEX)) {
             final int taskIndex = Integer.parseInt(
                     input.replaceAll("\\D", ""));
+            // TODO: handle missing/non-integer index
             return new MarkTaskCommand(taskIndex);
         } else if (input.matches(InputParser.UNMARK_COMMAND_REGEX)) {
             final int taskIndex = Integer.parseInt(
                     input.replaceAll("\\D", ""));
+            // TODO: handle missing/non-integer index
             return new UnmarkTaskCommand(taskIndex);
         } else if (input.matches(InputParser.ADD_TODO_REGEX)) {
             if (input.strip().equals("todo")) {
