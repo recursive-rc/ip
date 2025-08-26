@@ -9,4 +9,8 @@ public class EmptyDescriptionException extends RuntimeException {
         super(message);
         this.taskType = taskType;
     }
+    
+    public String getTaskType() {
+        return this.taskType;
+    }
 }
