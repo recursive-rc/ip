@@ -44,7 +44,10 @@ public final class InputParser {
                     .replaceFirst("\\s+/by.+", "");
             final String deadline = input.replaceFirst(".+/by\\s+", "");
             final TaskWithDeadline newTask = new TaskWithDeadline(taskName, deadline);
-            return new AddTaskCommand(newTask);  // TODO
+            return new AddTaskCommand(newTask);
+            // TODO: Handle empty description
+            // TODO: Handle missing "/by"
+            // TODO: Handle empty deadline
         } else if (input.matches(InputParser.ADD_EVENT_REGEX)) {
             final String taskName = input.replaceFirst("event\\s+", "")
                     .replaceFirst("\\s+/from.+", "");
@@ -54,6 +57,9 @@ public final class InputParser {
             final String endDateTime = input.replaceFirst(".+/to\\s+", "");
             final Event newTask = new Event(taskName, startDateTime, endDateTime);
             return new AddTaskCommand(newTask);
+            // TODO: Handle empty description
+            // TODO: Handle missing "/from" and/or "/to"
+            // TODO: Handle empty start/end dates/times
         } else {
             throw new IllegalArgumentException("Invalid user input");
         }
