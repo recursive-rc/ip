@@ -40,4 +40,8 @@ public class Task {
         }
         return checkbox + " " + this.name;
     }
+
+    public String toCsvString() {
+        return String.format("%b,\"%s\"", this.isDone, this.getName());
+    }
 }

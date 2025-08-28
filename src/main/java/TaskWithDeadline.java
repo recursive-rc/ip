@@ -10,4 +10,10 @@ public class TaskWithDeadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline + ")";
     }
+
+    @Override
+    public String toCsvString() {
+        return String.format("D,%s,\"%s\"", super.toCsvString(),
+                this.deadline);
+    }
 }
