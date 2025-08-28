@@ -29,9 +29,11 @@ public class IttyBotty {
         }
 
         boolean hasExited = false;
+        boolean hasListChanged;
         Scanner scanner = new Scanner(System.in);
         InputParser parser = new InputParser();
         while (!hasExited) {
+            hasListChanged = false;
             String userInput = scanner.nextLine();
             UserCommand command;
             try {
@@ -54,6 +56,7 @@ public class IttyBotty {
                                 newTask +
                                 "\nYou now have " + taskList.size() +
                                 " tasks stored.");
+                hasListChanged = true;
             } else if (command instanceof MarkTaskCommand markCommand) {
                 Task taskToMark = taskList.get(markCommand.getTaskIndex() - 1);
                 // TODO: handle IndexOutOfBoundsException
@@ -62,6 +65,7 @@ public class IttyBotty {
                 IttyBotty.printFancyOutput("Good job! " +
                         "The task below is recorded as done!\n" +
                         taskToMark);
+                hasListChanged = true;
             } else if (command instanceof UnmarkTaskCommand unmarkCommand) {
                 Task taskToUnmark = taskList.get(unmarkCommand.getTaskIndex() - 1);
                 // TODO: handle IndexOutOfBoundsException
@@ -70,6 +74,7 @@ public class IttyBotty {
                 IttyBotty.printFancyOutput("Alright, " +
                         "The task below has been unmarked!\n" +
                         taskToUnmark);
+                hasListChanged = true;
             } else if (command instanceof ListCommand) {
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < taskList.size(); i++) {
@@ -92,8 +97,20 @@ public class IttyBotty {
                 IttyBotty.printFancyOutput("Successfully deleted:\n" +
                         deletedTask +
                         "\nYou have " + taskList.size() + " tasks remaining.");
+                hasListChanged = true;
             } else {
                 throw new IllegalStateException("Unknown user command.");
+            }
+            if (hasListChanged) {
+                try {
+                    IttyBotty.saveToFile(new File(IttyBotty.DEFAULT_FILE_PATH));
+                } catch (IOException e) {
+                    printFancyOutput("Unfortunately, we could not save this " +
+                            "change to your task list :(.");
+                    // For debug only
+                    // TODO: delete before production
+                    System.err.println(e.getMessage());
+                }
             }
         }
     }
@@ -179,17 +196,7 @@ public class IttyBotty {
     }
     
     private static void exit() {
-        try {
-            IttyBotty.saveToFile(new File(IttyBotty.DEFAULT_FILE_PATH));
-            printFancyOutput("Your tasks have been successfully saved!\n" +
-                    "Bye. Hope to see you again soon!");
-        } catch (IOException e) {
-            printFancyOutput(
-                    "Unfortunately, we could not save your task list :(.");
-            // For debug only
-            // TODO: delete before production
-            System.err.println(e.getMessage());
-        }
+        printFancyOutput("Bye. Hope to see you again soon!");
     }
     
     /**
