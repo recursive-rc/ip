@@ -1,10 +1,18 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
     private static final List<Task> taskList = new ArrayList<>();
+
+    private static final String DEFAULT_FILE_PATH =
+            "./data/tasklist.txt";
+    private static final char DELIMETER = ',';
     
     public static void main(String[] args) {
         IttyBotty.greetUser();
@@ -84,9 +92,44 @@ public class IttyBotty {
                 + "\nWhat can I do for you?";
         printFancyOutput(greeting);
     }
+
+    private static List<Task> loadFromFile(File taskListFile) {
+        return new ArrayList<>();  // TODO: implement properly
+    }
+
+    private static void saveToFile(File taskFileList) throws IOException {
+        // Code below inspired by https://stackoverflow.com/a/7469050
+        if (!taskFileList.getParentFile().exists()) {
+            boolean isMkdrsSuccessful =
+                    taskFileList.getParentFile().mkdirs();
+            if (!isMkdrsSuccessful) {
+                throw new IOException(
+                        "Unable to create necessary parent directories.");
+            }
+        }
+        if (!taskFileList.exists()) {
+            taskFileList.createNewFile();
+        }
+
+        try (FileWriter writer = new FileWriter(taskFileList)) {
+            for (Task task : IttyBotty.taskList) {
+                writer.write(task.toCsvString() + '\n');
+            }
+        }
+    }
     
     private static void exit() {
-        printFancyOutput("Bye. Hope to see you again soon!");
+        try {
+            IttyBotty.saveToFile(new File(IttyBotty.DEFAULT_FILE_PATH));
+            printFancyOutput("Your tasks have been successfully saved!\n" +
+                    "Bye. Hope to see you again soon!");
+        } catch (IOException e) {
+            printFancyOutput(
+                    "Unfortunately, we could not save your task list :(.");
+            // For debug only
+            // TODO: delete before production
+            System.err.println(e.getMessage());
+        }
     }
     
     /**
