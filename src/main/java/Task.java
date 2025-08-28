@@ -40,4 +40,11 @@ public abstract class Task {
         }
         return checkbox + " " + this.name;
     }
+
+    public String toCsvString() {
+        return String.format("%b,\"%s\"", this.isDone, this.getName());
+        // This method and its counterparts in subclass that override
+        // it assume that there are no quotes in task descriptions or
+        // dates/times
+    }
 }
