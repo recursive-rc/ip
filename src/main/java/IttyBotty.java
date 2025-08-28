@@ -1,9 +1,12 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
@@ -14,8 +17,17 @@ public class IttyBotty {
     private static final char DELIMETER = ',';
     
     public static void main(String[] args) {
-        IttyBotty.greetUser();
-        
+        try {
+            List<Task> listFromFile = IttyBotty.loadFromFile(
+                    new File(IttyBotty.DEFAULT_FILE_PATH));
+            IttyBotty.taskList.addAll(listFromFile);
+            IttyBotty.greetUser(false, true);
+        } catch (FileNotFoundException e) {
+            IttyBotty.greetUser(true, false);
+        } catch (IOException e) {
+            IttyBotty.greetUser(false, false);
+        }
+
         boolean hasExited = false;
         Scanner scanner = new Scanner(System.in);
         InputParser parser = new InputParser();
@@ -86,14 +98,63 @@ public class IttyBotty {
         }
     }
     
-    private static void greetUser() {
-        String greeting = "Hello! I'm " + IttyBotty.CHATBOT_NAME
-                + "\nWhat can I do for you?";
+    private static void greetUser(boolean isFirstTime, boolean isLoadDataSuccess) {
+        String greeting = "Hello! I'm " + IttyBotty.CHATBOT_NAME + "!";
+        if (isFirstTime) {
+            greeting += "\nNice to meet you for the first time!";
+        } else if (isLoadDataSuccess) {
+            greeting += "\nSuccessfully loaded task list!";
+        } else {
+            greeting += "Unfortunately, it looks like the previous " +
+                    "save data has been corrupted,\nso we'll need to " +
+                    "start from scratch.";
+        }
         printFancyOutput(greeting);
     }
 
-    private static List<Task> loadFromFile(File taskListFile) {
-        return new ArrayList<>();  // TODO: implement properly
+    private static List<Task> loadFromFile(File taskListFile) throws IOException {
+        List<Task> taskListFromFile = new ArrayList<>();
+        try (Scanner scanner = new Scanner(taskListFile)) {
+            while (scanner.hasNext()) {
+                String currentLine = scanner.nextLine();
+                List<String> taskInfo = IttyBotty.parseCsvLine(currentLine);
+                Task currentTask = switch (taskInfo.get(0)) {
+                    case "T" -> new ToDo(taskInfo.get(2));
+                    case "D" -> new TaskWithDeadline(taskInfo.get(2),
+                            taskInfo.get(3));
+                    case "E" -> new Event(taskInfo.get(2), taskInfo.get(3),
+                            taskInfo.get(4));
+                    default -> throw new IOException(
+                            "Task type info corrupted: " + currentLine);
+                };
+                if (Boolean.parseBoolean(taskInfo.get(1))) {
+                    // TODO: handle corruption when neither true nor false
+                    currentTask.markDone();
+                }
+                taskListFromFile.add(currentTask);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new IOException("Missing info for some task");
+        }
+        return taskListFromFile;
+    }
+
+    private static List<String> parseCsvLine(String line) {
+        // Method implementation inspired by
+        // https://stackoverflow.com/a/7800519
+        Pattern pattern = Pattern.compile("(\"[^\"]+\"|[^,]+)");
+        // To handle quotes and commas within quotes
+        Matcher matcher = pattern.matcher(line);
+        List<String> result = new ArrayList<>();
+        while (matcher.find()) {
+            String item = matcher.group(1);
+            if (item.matches("\".+\"")) {  // starts & ends with double quotes
+                item = item.substring(1, item.length() - 1);
+                // Remove double quotes at start and end
+            }
+            result.add(item);
+        }
+        return result;
     }
 
     private static void saveToFile(File taskFileList) throws IOException {
