@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public final class InputParser {
     private static final String EXIT_COMMAND = "bye";
     private static final String LIST_COMMAND = "list";
@@ -46,7 +48,8 @@ public final class InputParser {
             // Current assumption: only one instance of "/by" in input
             final String taskName = input.replaceFirst("deadline\\s+", "")
                     .replaceFirst("\\s+/by.+", "");
-            final String deadline = input.replaceFirst(".+/by\\s+", "");
+            final LocalDate deadline = this.parseDate(
+                    input.replaceFirst(".+/by\\s+", ""));
             final TaskWithDeadline newTask = new TaskWithDeadline(taskName, deadline);
             return new AddTaskCommand(newTask);
             // TODO: Handle empty description
@@ -75,4 +78,12 @@ public final class InputParser {
     }
     
     // TODO: explore creating singletons for some commands (e.g., exit, list)
+    
+    private LocalDate parseDate(String dateAsString) {
+        return LocalDate.parse(dateAsString);
+        // TODO: allow more date formats
+        // This method is created so more input date formats can be supported
+        // in all different input scenarios just by changing this
+        // method implementation.
+    }
 }
