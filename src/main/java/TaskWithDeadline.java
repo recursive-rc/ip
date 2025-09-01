@@ -1,14 +1,19 @@
+import java.time.LocalDate;
+
 public class TaskWithDeadline extends Task {
-    private String deadline;  // TODO: change to date/time type
+    private final LocalDate deadline;
     
-    public TaskWithDeadline(String name, String deadline) {
+    public TaskWithDeadline(String name, LocalDate deadline) {
         super(name);
         this.deadline = deadline;
     }
     
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString()
+                + " (by: " + OutputFormatter.formatDateForOutput(this.deadline)
+                + ")";
+        // TODO: change format of date output
     }
 
     @Override
