@@ -58,11 +58,13 @@ public final class InputParser {
         } else if (input.matches(InputParser.ADD_EVENT_REGEX)) {
             final String taskName = input.replaceFirst("event\\s+", "")
                     .replaceFirst("\\s+/from.+", "");
-            final String startDateTime = input.replaceFirst(".+/from\\s+", "")
+            final LocalDate startDate = this.parseDate(
+                    input.replaceFirst(".+/from\\s+", "")
                     .replaceFirst("/to.+", "")
-                    .strip();
-            final String endDateTime = input.replaceFirst(".+/to\\s+", "");
-            final Event newTask = new Event(taskName, startDateTime, endDateTime);
+                    .strip());
+            final LocalDate endDate = this.parseDate(
+                    input.replaceFirst(".+/to\\s+", ""));
+            final Event newTask = new Event(taskName, startDate, endDate);
             return new AddTaskCommand(newTask);
             // TODO: Handle empty description
             // TODO: Handle missing "/from" and/or "/to"

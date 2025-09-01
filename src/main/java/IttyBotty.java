@@ -141,8 +141,9 @@ public class IttyBotty {
                     case "D" -> new TaskWithDeadline(taskInfo.get(2),
                             LocalDate.now());  // LocalDate.now() is placeholder
                     // TODO: parse date in file
-                    case "E" -> new Event(taskInfo.get(2), taskInfo.get(3),
-                            taskInfo.get(4));
+                    case "E" -> new Event(taskInfo.get(2), LocalDate.now(),
+                            LocalDate.now());  // LocalDate.now() is placeholder
+                    // TODO: parse date in file
                     default -> throw new IOException(
                             "Task type info corrupted: " + currentLine);
                 };
