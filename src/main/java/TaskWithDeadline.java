@@ -10,7 +10,9 @@ public class TaskWithDeadline extends Task {
     
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString()
+                + " (by: " + OutputFormatter.formatDateForOutput(this.deadline)
+                + ")";
         // TODO: change format of date output
     }
 
