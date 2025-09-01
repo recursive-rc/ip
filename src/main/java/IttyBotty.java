@@ -139,11 +139,10 @@ public class IttyBotty {
                 Task currentTask = switch (taskInfo.get(0)) {
                     case "T" -> new ToDo(taskInfo.get(2));
                     case "D" -> new TaskWithDeadline(taskInfo.get(2),
-                            LocalDate.now());  // LocalDate.now() is placeholder
-                    // TODO: parse date in file
-                    case "E" -> new Event(taskInfo.get(2), LocalDate.now(),
-                            LocalDate.now());  // LocalDate.now() is placeholder
-                    // TODO: parse date in file
+                            LocalDate.parse(taskInfo.get(3)));
+                    case "E" -> new Event(taskInfo.get(2),
+                            LocalDate.parse(taskInfo.get(3)),
+                            LocalDate.parse(taskInfo.get(4)));
                     default -> throw new IOException(
                             "Task type info corrupted: " + currentLine);
                 };
