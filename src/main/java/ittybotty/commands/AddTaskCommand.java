@@ -1,4 +1,6 @@
-package ittybotty;
+package ittybotty.commands;
+
+import ittybotty.Task;
 
 public final class AddTaskCommand extends UserCommand {
     private final Task taskToAdd;
@@ -13,7 +15,7 @@ public final class AddTaskCommand extends UserCommand {
     
     @Override
     public String toString() {
-        return "ittybotty.AddTaskCommand{" +
+        return "ittybotty.commands.AddTaskCommand{" +
                 "taskToAdd='" + this.taskToAdd + '\'' +
                 '}';
     }

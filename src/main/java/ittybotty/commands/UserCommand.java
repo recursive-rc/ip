@@ -1,8 +1,8 @@
-package ittybotty;
+package ittybotty.commands;
 
 public abstract class UserCommand {
     @Override
     public String toString() {
-        return "ittybotty.UserCommand{}";
+        return "ittybotty.commands.UserCommand{}";
     }
 }

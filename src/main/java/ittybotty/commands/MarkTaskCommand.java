@@ -1,4 +1,4 @@
-package ittybotty;
+package ittybotty.commands;
 
 public final class MarkTaskCommand extends UserCommand {
     private final int taskIndex;
@@ -13,7 +13,7 @@ public final class MarkTaskCommand extends UserCommand {
     
     @Override
     public String toString() {
-        return "ittybotty.MarkTaskCommand{" +
+        return "ittybotty.commands.MarkTaskCommand{" +
                 "taskIndex=" + taskIndex +
                 '}';
     }
