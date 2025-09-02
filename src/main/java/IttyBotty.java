@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
-    private static final List<Task> taskList = new ArrayList<>();
 
     private static final String DEFAULT_FILE_PATH =
             "./data/tasklist.txt";
@@ -19,10 +18,12 @@ public class IttyBotty {
     
     private final OutputFormatter outputter;
     private String saveFilePath;
+    private TaskList taskList;
     
     public IttyBotty(String saveFilePath) {
         this.saveFilePath = saveFilePath;
         this.outputter = new OutputFormatter();
+        this.taskList = new TaskList();
     }
     
     public IttyBotty() {
@@ -44,7 +45,7 @@ public class IttyBotty {
         try {
             List<Task> listFromFile = IttyBotty.loadFromFile(
                     new File(this.saveFilePath));
-            IttyBotty.taskList.addAll(listFromFile);
+            this.taskList = new TaskList(listFromFile);
             this.greetUser(false, true);
         } catch (FileNotFoundException e) {
             this.greetUser(true, false);
@@ -74,7 +75,7 @@ public class IttyBotty {
             // TODO: Use dynamic binding to replace instanceof checks below
             if (command instanceof AddTaskCommand addTaskCommand) {
                 Task newTask = addTaskCommand.getTask();
-                taskList.add(newTask);
+                this.taskList.addTask(newTask);
                 this.outputter.printFancyOutput(
                         "Successfully added the following task:\n" +
                                 newTask +
@@ -82,54 +83,40 @@ public class IttyBotty {
                                 " tasks stored.");
                 hasListChanged = true;
             } else if (command instanceof MarkTaskCommand markCommand) {
-                Task taskToMark = taskList.get(markCommand.getTaskIndex() - 1);
+                Task markedTask = this.taskList.markTask(markCommand.getTaskIndex());
                 // TODO: handle IndexOutOfBoundsException
-                // - 1 because 0-indexed
-                taskToMark.markDone();
                 this.outputter.printFancyOutput("Good job! " +
                         "The task below is recorded as done!\n" +
-                        taskToMark);
+                        markedTask);
                 hasListChanged = true;
             } else if (command instanceof UnmarkTaskCommand unmarkCommand) {
-                Task taskToUnmark = taskList.get(unmarkCommand.getTaskIndex() - 1);
+                Task taskToUnmark = this.taskList.unmarkTask(unmarkCommand.getTaskIndex());
                 // TODO: handle IndexOutOfBoundsException
-                // - 1 because 0-indexed
-                taskToUnmark.unmarkDone();
                 this.outputter.printFancyOutput("Alright, " +
                         "The task below has been unmarked!\n" +
                         taskToUnmark);
                 hasListChanged = true;
             } else if (command instanceof ListCommand) {
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < taskList.size(); i++) {
-                    int taskNum = i + 1;
-                    builder.append(taskNum).append(". ")
-                            .append(taskList.get(i));
-                    if (taskNum != taskList.size()) {
-                        builder.append('\n');
-                    }
-                }
-                this.outputter.printFancyOutput(builder.toString());
+                this.outputter.printFancyOutput(this.taskList.toString());
             } else if (command instanceof ExitCommand) {
                 this.exit();
                 hasExited = true;
             } else if (command instanceof DeleteCommand deleteCommand) {
-                final int deleteIndex = deleteCommand.getTaskIndex() - 1;
-                // - 1 because 0-indexed
-                final Task deletedTask = taskList.get(deleteIndex);
-                taskList.remove(deleteIndex);
+                final Task deletedTask = this.taskList.removeTask(
+                        deleteCommand.getTaskIndex());
                 this.outputter.printFancyOutput("Successfully deleted:\n" +
                         deletedTask +
-                        "\nYou have " + taskList.size() + " tasks remaining.");
+                        "\nYou have " + this.taskList.size() + " tasks remaining.");
                 hasListChanged = true;
             } else {
                 throw new IllegalStateException("Unknown user command.");
             }
             if (hasListChanged) {
                 try {
-                    IttyBotty.saveToFile(new File(this.saveFilePath));
+                    this.saveToFile(new File(this.saveFilePath));
                 } catch (IOException e) {
-                    this.outputter.printFancyOutput("Unfortunately, we could not save this " +
+                    this.outputter.printFancyOutput(
+                            "Unfortunately, we could not save this " +
                             "change to your task list :(.");
                     // For debug only
                     // TODO: delete before production
@@ -199,7 +186,7 @@ public class IttyBotty {
         return result;
     }
 
-    private static void saveToFile(File taskFileList) throws IOException {
+    private void saveToFile(File taskFileList) throws IOException {
         // Code below inspired by https://stackoverflow.com/a/7469050
         if (!taskFileList.getParentFile().exists()) {
             boolean isMkdrsSuccessful =
@@ -214,9 +201,7 @@ public class IttyBotty {
         }
 
         try (FileWriter writer = new FileWriter(taskFileList)) {
-            for (Task task : IttyBotty.taskList) {
-                writer.write(task.toCsvString() + '\n');
-            }
+            writer.write(this.taskList.toCsvString() + '\n');
         }
     }
     
