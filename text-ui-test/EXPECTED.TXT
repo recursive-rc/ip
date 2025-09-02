@@ -1,20 +1,100 @@
     ____________________________________________________________
-    Hello! I'm Itty-Botty
-    What can I do for you?
+    Hello! I'm Itty-Botty!
+    Successfully loaded task list!
     ____________________________________________________________
     ____________________________________________________________
     Successfully added the following task:
     [T][ ] borrow book
-    You now have 1 tasks stored.
+    You now have 4 tasks stored.
     ____________________________________________________________
     ____________________________________________________________
-    1. [T][ ] borrow book
+    Good job! The task below is recorded as done!
+    [T][X] borrow book
     ____________________________________________________________
     ____________________________________________________________
-    Oh no! The ToDo description is empty.
+    1. [D][X] find book to borrow (by: Sun 6 Jul 2025)
+    2. [E][ ] New Year's trip (from: Wed 31 Dec 2025 to: Fri 2 Jan 2026)
+    3. [T][X] find new game to play
+    4. [T][X] borrow book
     ____________________________________________________________
     ____________________________________________________________
-    Oh no! IttyBotty does not recognise this command.
+    1. [D][X] find book to borrow (by: Sun 6 Jul 2025)
+    2. [E][ ] New Year's trip (from: Wed 31 Dec 2025 to: Fri 2 Jan 2026)
+    3. [T][X] find new game to play
+    4. [T][X] borrow book
+    ____________________________________________________________
+    ____________________________________________________________
+    Alright, The task below has been unmarked!
+    [T][ ] borrow book
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [D][X] find book to borrow (by: Sun 6 Jul 2025)
+    2. [E][ ] New Year's trip (from: Wed 31 Dec 2025 to: Fri 2 Jan 2026)
+    3. [T][X] find new game to play
+    4. [T][ ] borrow book
+    ____________________________________________________________
+    ____________________________________________________________
+    Successfully added the following task:
+    [D][ ] return book (by: Mon 15 Sep 2025)
+    You now have 5 tasks stored.
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [D][X] find book to borrow (by: Sun 6 Jul 2025)
+    2. [E][ ] New Year's trip (from: Wed 31 Dec 2025 to: Fri 2 Jan 2026)
+    3. [T][X] find new game to play
+    4. [T][ ] borrow book
+    5. [D][ ] return book (by: Mon 15 Sep 2025)
+    ____________________________________________________________
+    ____________________________________________________________
+    Successfully added the following task:
+    [E][ ] Sentosa vacation (from: Wed 1 Oct 2025 to: Tue 7 Oct 2025)
+    You now have 6 tasks stored.
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [D][X] find book to borrow (by: Sun 6 Jul 2025)
+    2. [E][ ] New Year's trip (from: Wed 31 Dec 2025 to: Fri 2 Jan 2026)
+    3. [T][X] find new game to play
+    4. [T][ ] borrow book
+    5. [D][ ] return book (by: Mon 15 Sep 2025)
+    6. [E][ ] Sentosa vacation (from: Wed 1 Oct 2025 to: Tue 7 Oct 2025)
+    ____________________________________________________________
+    ____________________________________________________________
+    Good job! The task below is recorded as done!
+    [E][X] Sentosa vacation (from: Wed 1 Oct 2025 to: Tue 7 Oct 2025)
+    ____________________________________________________________
+    ____________________________________________________________
+    Good job! The task below is recorded as done!
+    [D][X] return book (by: Mon 15 Sep 2025)
+    ____________________________________________________________
+    ____________________________________________________________
+    Alright, The task below has been unmarked!
+    [E][ ] Sentosa vacation (from: Wed 1 Oct 2025 to: Tue 7 Oct 2025)
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [D][X] find book to borrow (by: Sun 6 Jul 2025)
+    2. [E][ ] New Year's trip (from: Wed 31 Dec 2025 to: Fri 2 Jan 2026)
+    3. [T][X] find new game to play
+    4. [T][ ] borrow book
+    5. [D][X] return book (by: Mon 15 Sep 2025)
+    6. [E][ ] Sentosa vacation (from: Wed 1 Oct 2025 to: Tue 7 Oct 2025)
+    ____________________________________________________________
+    ____________________________________________________________
+    Successfully added the following task:
+    [E][ ] Reading Week revision (from: Sat 15 Nov 2025 to: Fri 21 Nov 2025)
+    You now have 7 tasks stored.
+    ____________________________________________________________
+    ____________________________________________________________
+    Successfully deleted:
+    [D][X] return book (by: Mon 15 Sep 2025)
+    You have 6 tasks remaining.
+    ____________________________________________________________
+    ____________________________________________________________
+    1. [D][X] find book to borrow (by: Sun 6 Jul 2025)
+    2. [E][ ] New Year's trip (from: Wed 31 Dec 2025 to: Fri 2 Jan 2026)
+    3. [T][X] find new game to play
+    4. [T][ ] borrow book
+    5. [E][ ] Sentosa vacation (from: Wed 1 Oct 2025 to: Tue 7 Oct 2025)
+    6. [E][ ] Reading Week revision (from: Sat 15 Nov 2025 to: Fri 21 Nov 2025)
     ____________________________________________________________
     ____________________________________________________________
     Bye. Hope to see you again soon!

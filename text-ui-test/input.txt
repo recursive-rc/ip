@@ -1,5 +1,18 @@
 todo borrow book
+mark 4
 list
-todo
-blah
+list
+unmark 4
+list
+deadline return book /by 2025-09-15
+list
+event Sentosa vacation /from 2025-10-01 /to 2025-10-07
+list
+mark 6
+mark 5
+unmark 6
+list
+event Reading Week revision /from 2025-11-15 /to 2025-11-21
+delete 5
+list
 bye
