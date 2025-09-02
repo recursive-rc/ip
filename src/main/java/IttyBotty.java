@@ -11,23 +11,20 @@ import java.util.regex.Pattern;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
-
-    private static final String DEFAULT_FILE_PATH =
-            "./data/tasklist.txt";
-    private static final char DELIMETER = ',';
     
     private final OutputFormatter outputter;
-    private String saveFilePath;
     private TaskList taskList;
-    
-    public IttyBotty(String saveFilePath) {
-        this.saveFilePath = saveFilePath;
-        this.outputter = new OutputFormatter();
-        this.taskList = new TaskList();
-    }
+    private SaveFileManager saveManager;
     
     public IttyBotty() {
-        this(IttyBotty.DEFAULT_FILE_PATH);
+        this.outputter = new OutputFormatter();
+        this.taskList = new TaskList();
+        this.saveManager = new SaveFileManager();
+    }
+    
+    public IttyBotty(String saveFilePath) {
+        this();
+        this.saveManager.setSaveFilePath(saveFilePath);
     }
     
     public static void main(String[] args) {
@@ -43,9 +40,7 @@ public class IttyBotty {
     
     public void run() {
         try {
-            List<Task> listFromFile = IttyBotty.loadFromFile(
-                    new File(this.saveFilePath));
-            this.taskList = new TaskList(listFromFile);
+            this.saveManager.loadFromFile(this.taskList);
             this.greetUser(false, true);
         } catch (FileNotFoundException e) {
             this.greetUser(true, false);
@@ -113,7 +108,7 @@ public class IttyBotty {
             }
             if (hasListChanged) {
                 try {
-                    this.saveToFile(new File(this.saveFilePath));
+                    this.saveManager.saveToFile(this.taskList);
                 } catch (IOException e) {
                     this.outputter.printFancyOutput(
                             "Unfortunately, we could not save this " +
@@ -140,71 +135,6 @@ public class IttyBotty {
         this.outputter.printFancyOutput(greeting);
     }
 
-    private static List<Task> loadFromFile(File taskListFile) throws IOException {
-        List<Task> taskListFromFile = new ArrayList<>();
-        try (Scanner scanner = new Scanner(taskListFile)) {
-            while (scanner.hasNext()) {
-                String currentLine = scanner.nextLine();
-                List<String> taskInfo = IttyBotty.parseCsvLine(currentLine);
-                Task currentTask = switch (taskInfo.get(0)) {
-                    case "T" -> new ToDo(taskInfo.get(2));
-                    case "D" -> new TaskWithDeadline(taskInfo.get(2),
-                            LocalDate.parse(taskInfo.get(3)));
-                    case "E" -> new Event(taskInfo.get(2),
-                            LocalDate.parse(taskInfo.get(3)),
-                            LocalDate.parse(taskInfo.get(4)));
-                    default -> throw new IOException(
-                            "Task type info corrupted: " + currentLine);
-                };
-                if (Boolean.parseBoolean(taskInfo.get(1))) {
-                    // TODO: handle corruption when neither true nor false
-                    currentTask.markDone();
-                }
-                taskListFromFile.add(currentTask);
-            }
-        } catch (IndexOutOfBoundsException e) {
-            throw new IOException("Missing info for some task");
-        }
-        return taskListFromFile;
-    }
-
-    private static List<String> parseCsvLine(String line) {
-        // Method implementation inspired by
-        // https://stackoverflow.com/a/7800519
-        Pattern pattern = Pattern.compile("(\"[^\"]+\"|[^,]+)");
-        // To handle quotes and commas within quotes
-        Matcher matcher = pattern.matcher(line);
-        List<String> result = new ArrayList<>();
-        while (matcher.find()) {
-            String item = matcher.group(1);
-            if (item.matches("\".+\"")) {  // starts & ends with double quotes
-                item = item.substring(1, item.length() - 1);
-                // Remove double quotes at start and end
-            }
-            result.add(item);
-        }
-        return result;
-    }
-
-    private void saveToFile(File taskFileList) throws IOException {
-        // Code below inspired by https://stackoverflow.com/a/7469050
-        if (!taskFileList.getParentFile().exists()) {
-            boolean isMkdrsSuccessful =
-                    taskFileList.getParentFile().mkdirs();
-            if (!isMkdrsSuccessful) {
-                throw new IOException(
-                        "Unable to create necessary parent directories.");
-            }
-        }
-        if (!taskFileList.exists()) {
-            taskFileList.createNewFile();
-        }
-
-        try (FileWriter writer = new FileWriter(taskFileList)) {
-            writer.write(this.taskList.toCsvString() + '\n');
-        }
-    }
-    
     private void exit() {
         this.outputter.printFancyOutput("Bye. Hope to see you again soon!");
     }

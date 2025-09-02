@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class TaskList {
@@ -14,6 +15,10 @@ public class TaskList {
     
     public void addTask(Task task) {
         this.tasks.add(task);
+    }
+    
+    public boolean addAll(Collection<? extends Task> c) {
+        return tasks.addAll(c);
     }
     
     /**
