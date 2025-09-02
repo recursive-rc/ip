@@ -7,6 +7,9 @@ import ittybotty.commands.ListCommand;
 import ittybotty.commands.MarkTaskCommand;
 import ittybotty.commands.UnmarkTaskCommand;
 import ittybotty.commands.UserCommand;
+import ittybotty.data.tasks.Event;
+import ittybotty.data.tasks.TaskWithDeadline;
+import ittybotty.data.tasks.ToDo;
 
 import java.time.LocalDate;
 
@@ -49,7 +52,7 @@ public final class InputParser {
             return new UnmarkTaskCommand(taskIndex);
         } else if (input.matches(InputParser.ADD_TODO_REGEX)) {
             if (input.strip().equals("todo")) {
-                throw new EmptyDescriptionException("ittybotty.ToDo");
+                throw new EmptyDescriptionException("ittybotty.data.tasks.ToDo");
             }
             final String taskName = input.replaceFirst("todo\\s+", "");
             final ToDo newTask = new ToDo(taskName);

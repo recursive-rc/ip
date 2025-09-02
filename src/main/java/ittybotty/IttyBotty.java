@@ -7,6 +7,8 @@ import ittybotty.commands.ListCommand;
 import ittybotty.commands.MarkTaskCommand;
 import ittybotty.commands.UnmarkTaskCommand;
 import ittybotty.commands.UserCommand;
+import ittybotty.data.TaskList;
+import ittybotty.data.tasks.Task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

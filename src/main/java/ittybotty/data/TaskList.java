@@ -1,4 +1,6 @@
-package ittybotty;
+package ittybotty.data;
+
+import ittybotty.data.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,6 @@
-package ittybotty;
+package ittybotty.data.tasks;
+
+import ittybotty.OutputFormatter;
 
 import java.time.LocalDate;
 

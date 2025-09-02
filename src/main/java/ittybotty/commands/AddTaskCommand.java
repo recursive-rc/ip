@@ -1,6 +1,6 @@
 package ittybotty.commands;
 
-import ittybotty.Task;
+import ittybotty.data.tasks.Task;
 
 public final class AddTaskCommand extends UserCommand {
     private final Task taskToAdd;
