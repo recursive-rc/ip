@@ -1,13 +1,8 @@
-import java.io.File;
+package ittybotty;
+
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
@@ -63,7 +58,7 @@ public class IttyBotty {
                         " description is empty.");
                 continue;
             } catch (IllegalArgumentException e) {
-                this.outputter.printFancyOutput("Oh no! IttyBotty does not " +
+                this.outputter.printFancyOutput("Oh no! ittybotty.IttyBotty does not " +
                         "recognise this command.");
                 continue;
             }

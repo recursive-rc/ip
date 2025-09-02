@@ -1,3 +1,5 @@
+package ittybotty;
+
 public abstract class Task {
     private final String name;
     private boolean isDone;
@@ -16,7 +18,7 @@ public abstract class Task {
     
     public void markDone() {
         if (this.isDone) {
-            throw new IllegalStateException("Task " + this.name
+            throw new IllegalStateException("ittybotty.Task " + this.name
                     + " is already marked as done.");
         }
         this.isDone = true;
@@ -24,7 +26,7 @@ public abstract class Task {
     
     public void unmarkDone() {
         if (!this.isDone) {
-            throw new IllegalStateException("Task " + this.name
+            throw new IllegalStateException("ittybotty.Task " + this.name
                     + " has not been marked as done.");
         }
         this.isDone = false;

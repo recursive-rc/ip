@@ -1,3 +1,5 @@
+package ittybotty;
+
 import java.time.LocalDate;
 
 public final class InputParser {
@@ -39,7 +41,7 @@ public final class InputParser {
             return new UnmarkTaskCommand(taskIndex);
         } else if (input.matches(InputParser.ADD_TODO_REGEX)) {
             if (input.strip().equals("todo")) {
-                throw new EmptyDescriptionException("ToDo");
+                throw new EmptyDescriptionException("ittybotty.ToDo");
             }
             final String taskName = input.replaceFirst("todo\\s+", "");
             final ToDo newTask = new ToDo(taskName);

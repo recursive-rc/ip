@@ -1,3 +1,5 @@
+package ittybotty;
+
 public class EmptyDescriptionException extends RuntimeException {
     private final String taskType;
     

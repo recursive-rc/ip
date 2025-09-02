@@ -1,3 +1,5 @@
+package ittybotty;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -67,7 +69,7 @@ public class SaveFileManager {
             case "E" -> new Event(taskInfo.get(2),
                     LocalDate.parse(taskInfo.get(3)),
                     LocalDate.parse(taskInfo.get(4)));
-            default -> throw new IOException("Task type info corrupted.");
+            default -> throw new IOException("ittybotty.Task type info corrupted.");
         };
         if (Boolean.parseBoolean(taskInfo.get(1))) {
             // TODO: handle corruption when neither true nor false

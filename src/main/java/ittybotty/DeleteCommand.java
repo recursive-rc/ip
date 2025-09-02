@@ -1,3 +1,5 @@
+package ittybotty;
+
 public class DeleteCommand extends UserCommand {
     private int taskIndex;
     
@@ -11,7 +13,7 @@ public class DeleteCommand extends UserCommand {
     
     @Override
     public String toString() {
-        return "DeleteCommand{" +
+        return "ittybotty.DeleteCommand{" +
                 "taskIndex=" + this.taskIndex +
                 '}';
     }

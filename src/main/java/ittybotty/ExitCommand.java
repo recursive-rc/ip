@@ -1,6 +1,8 @@
+package ittybotty;
+
 public final class ExitCommand extends UserCommand {
     @Override
     public String toString() {
-        return "ExitCommand{}";
+        return "ittybotty.ExitCommand{}";
     }
 }
