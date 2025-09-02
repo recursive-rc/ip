@@ -15,7 +15,7 @@ public abstract class Task {
     public String getName() {
         return this.name;
     }
-    
+
     public void markDone() {
         if (this.isDone) {
             throw new IllegalStateException("ittybotty.data.tasks.Task " + this.name
@@ -48,5 +48,21 @@ public abstract class Task {
         // This method and its counterparts in subclass that override
         // it assume that there are no quotes in task descriptions or
         // dates/times
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Task task)) {
+            return false;
+        }
+
+        return this.isDone == task.isDone && this.name.equals(task.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = this.name.hashCode();
+        result = 31 * result + Boolean.hashCode(this.isDone);
+        return result;
     }
 }

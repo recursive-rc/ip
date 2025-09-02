@@ -27,4 +27,24 @@ public class Event extends Task {
         return String.format("E,%s,\"%s\",\"%s\"", super.toCsvString(),
                 this.startDate, this.endDate);
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof Event event)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        return startDate.equals(event.startDate) && endDate.equals(event.endDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + startDate.hashCode();
+        result = 31 * result + endDate.hashCode();
+        return result;
+    }
 }
