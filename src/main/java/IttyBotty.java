@@ -17,18 +17,39 @@ public class IttyBotty {
             "./data/tasklist.txt";
     private static final char DELIMETER = ',';
     
-    private static final OutputFormatter outputter = new OutputFormatter();
+    private final OutputFormatter outputter;
+    private String saveFilePath;
+    
+    public IttyBotty(String saveFilePath) {
+        this.saveFilePath = saveFilePath;
+        this.outputter = new OutputFormatter();
+    }
+    
+    public IttyBotty() {
+        this(IttyBotty.DEFAULT_FILE_PATH);
+    }
     
     public static void main(String[] args) {
+        IttyBotty bot;
+        if (args.length == 0) {
+            bot = new IttyBotty();
+        } else {
+            // Allow specifying specific file for testing purposes
+            bot = new IttyBotty(args[0]);
+        }
+        bot.run();
+    }
+    
+    public void run() {
         try {
             List<Task> listFromFile = IttyBotty.loadFromFile(
-                    new File(IttyBotty.DEFAULT_FILE_PATH));
+                    new File(this.saveFilePath));
             IttyBotty.taskList.addAll(listFromFile);
-            IttyBotty.greetUser(false, true);
+            this.greetUser(false, true);
         } catch (FileNotFoundException e) {
-            IttyBotty.greetUser(true, false);
+            this.greetUser(true, false);
         } catch (IOException e) {
-            IttyBotty.greetUser(false, false);
+            this.greetUser(false, false);
         }
 
         boolean hasExited = false;
@@ -42,11 +63,11 @@ public class IttyBotty {
             try {
                 command = parser.parseInput(userInput);
             } catch (EmptyDescriptionException e) {
-                outputter.printFancyOutput("Oh no! The " + e.getTaskType() +
+                this.outputter.printFancyOutput("Oh no! The " + e.getTaskType() +
                         " description is empty.");
                 continue;
             } catch (IllegalArgumentException e) {
-                outputter.printFancyOutput("Oh no! IttyBotty does not " +
+                this.outputter.printFancyOutput("Oh no! IttyBotty does not " +
                         "recognise this command.");
                 continue;
             }
@@ -54,7 +75,7 @@ public class IttyBotty {
             if (command instanceof AddTaskCommand addTaskCommand) {
                 Task newTask = addTaskCommand.getTask();
                 taskList.add(newTask);
-                outputter.printFancyOutput(
+                this.outputter.printFancyOutput(
                         "Successfully added the following task:\n" +
                                 newTask +
                                 "\nYou now have " + taskList.size() +
@@ -65,7 +86,7 @@ public class IttyBotty {
                 // TODO: handle IndexOutOfBoundsException
                 // - 1 because 0-indexed
                 taskToMark.markDone();
-                outputter.printFancyOutput("Good job! " +
+                this.outputter.printFancyOutput("Good job! " +
                         "The task below is recorded as done!\n" +
                         taskToMark);
                 hasListChanged = true;
@@ -74,7 +95,7 @@ public class IttyBotty {
                 // TODO: handle IndexOutOfBoundsException
                 // - 1 because 0-indexed
                 taskToUnmark.unmarkDone();
-                outputter.printFancyOutput("Alright, " +
+                this.outputter.printFancyOutput("Alright, " +
                         "The task below has been unmarked!\n" +
                         taskToUnmark);
                 hasListChanged = true;
@@ -88,16 +109,16 @@ public class IttyBotty {
                         builder.append('\n');
                     }
                 }
-                outputter.printFancyOutput(builder.toString());
+                this.outputter.printFancyOutput(builder.toString());
             } else if (command instanceof ExitCommand) {
-                IttyBotty.exit();
+                this.exit();
                 hasExited = true;
             } else if (command instanceof DeleteCommand deleteCommand) {
                 final int deleteIndex = deleteCommand.getTaskIndex() - 1;
                 // - 1 because 0-indexed
                 final Task deletedTask = taskList.get(deleteIndex);
                 taskList.remove(deleteIndex);
-                outputter.printFancyOutput("Successfully deleted:\n" +
+                this.outputter.printFancyOutput("Successfully deleted:\n" +
                         deletedTask +
                         "\nYou have " + taskList.size() + " tasks remaining.");
                 hasListChanged = true;
@@ -106,9 +127,9 @@ public class IttyBotty {
             }
             if (hasListChanged) {
                 try {
-                    IttyBotty.saveToFile(new File(IttyBotty.DEFAULT_FILE_PATH));
+                    IttyBotty.saveToFile(new File(this.saveFilePath));
                 } catch (IOException e) {
-                    outputter.printFancyOutput("Unfortunately, we could not save this " +
+                    this.outputter.printFancyOutput("Unfortunately, we could not save this " +
                             "change to your task list :(.");
                     // For debug only
                     // TODO: delete before production
@@ -118,7 +139,7 @@ public class IttyBotty {
         }
     }
     
-    private static void greetUser(boolean isFirstTime, boolean isLoadDataSuccess) {
+    private void greetUser(boolean isFirstTime, boolean isLoadDataSuccess) {
         String greeting = "Hello! I'm " + IttyBotty.CHATBOT_NAME + "!";
         if (isFirstTime) {
             greeting += "\nNice to meet you for the first time!";
@@ -129,7 +150,7 @@ public class IttyBotty {
                     "save data has been corrupted,\nso we'll need to " +
                     "start from scratch.";
         }
-        outputter.printFancyOutput(greeting);
+        this.outputter.printFancyOutput(greeting);
     }
 
     private static List<Task> loadFromFile(File taskListFile) throws IOException {
@@ -199,7 +220,7 @@ public class IttyBotty {
         }
     }
     
-    private static void exit() {
-        outputter.printFancyOutput("Bye. Hope to see you again soon!");
+    private void exit() {
+        this.outputter.printFancyOutput("Bye. Hope to see you again soon!");
     }
 }
