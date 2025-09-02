@@ -17,6 +17,8 @@ public class IttyBotty {
             "./data/tasklist.txt";
     private static final char DELIMETER = ',';
     
+    private static final OutputFormatter outputter = new OutputFormatter();
+    
     public static void main(String[] args) {
         try {
             List<Task> listFromFile = IttyBotty.loadFromFile(
@@ -40,11 +42,11 @@ public class IttyBotty {
             try {
                 command = parser.parseInput(userInput);
             } catch (EmptyDescriptionException e) {
-                IttyBotty.printFancyOutput("Oh no! The " + e.getTaskType() +
+                outputter.printFancyOutput("Oh no! The " + e.getTaskType() +
                         " description is empty.");
                 continue;
             } catch (IllegalArgumentException e) {
-                IttyBotty.printFancyOutput("Oh no! IttyBotty does not " +
+                outputter.printFancyOutput("Oh no! IttyBotty does not " +
                         "recognise this command.");
                 continue;
             }
@@ -52,7 +54,7 @@ public class IttyBotty {
             if (command instanceof AddTaskCommand addTaskCommand) {
                 Task newTask = addTaskCommand.getTask();
                 taskList.add(newTask);
-                IttyBotty.printFancyOutput(
+                outputter.printFancyOutput(
                         "Successfully added the following task:\n" +
                                 newTask +
                                 "\nYou now have " + taskList.size() +
@@ -63,7 +65,7 @@ public class IttyBotty {
                 // TODO: handle IndexOutOfBoundsException
                 // - 1 because 0-indexed
                 taskToMark.markDone();
-                IttyBotty.printFancyOutput("Good job! " +
+                outputter.printFancyOutput("Good job! " +
                         "The task below is recorded as done!\n" +
                         taskToMark);
                 hasListChanged = true;
@@ -72,7 +74,7 @@ public class IttyBotty {
                 // TODO: handle IndexOutOfBoundsException
                 // - 1 because 0-indexed
                 taskToUnmark.unmarkDone();
-                IttyBotty.printFancyOutput("Alright, " +
+                outputter.printFancyOutput("Alright, " +
                         "The task below has been unmarked!\n" +
                         taskToUnmark);
                 hasListChanged = true;
@@ -86,7 +88,7 @@ public class IttyBotty {
                         builder.append('\n');
                     }
                 }
-                IttyBotty.printFancyOutput(builder.toString());
+                outputter.printFancyOutput(builder.toString());
             } else if (command instanceof ExitCommand) {
                 IttyBotty.exit();
                 hasExited = true;
@@ -95,7 +97,7 @@ public class IttyBotty {
                 // - 1 because 0-indexed
                 final Task deletedTask = taskList.get(deleteIndex);
                 taskList.remove(deleteIndex);
-                IttyBotty.printFancyOutput("Successfully deleted:\n" +
+                outputter.printFancyOutput("Successfully deleted:\n" +
                         deletedTask +
                         "\nYou have " + taskList.size() + " tasks remaining.");
                 hasListChanged = true;
@@ -106,7 +108,7 @@ public class IttyBotty {
                 try {
                     IttyBotty.saveToFile(new File(IttyBotty.DEFAULT_FILE_PATH));
                 } catch (IOException e) {
-                    printFancyOutput("Unfortunately, we could not save this " +
+                    outputter.printFancyOutput("Unfortunately, we could not save this " +
                             "change to your task list :(.");
                     // For debug only
                     // TODO: delete before production
@@ -127,7 +129,7 @@ public class IttyBotty {
                     "save data has been corrupted,\nso we'll need to " +
                     "start from scratch.";
         }
-        printFancyOutput(greeting);
+        outputter.printFancyOutput(greeting);
     }
 
     private static List<Task> loadFromFile(File taskListFile) throws IOException {
@@ -198,25 +200,6 @@ public class IttyBotty {
     }
     
     private static void exit() {
-        printFancyOutput("Bye. Hope to see you again soon!");
-    }
-    
-    /**
-     * Prints output with indents and surrounded by
-     * horizontal lines.
-     *
-     * @param output String to be formatted.
-     */
-    private static void printFancyOutput(String output) {
-        final String indent = "    ";
-        final String horizontalLine =
-                "____________________________________________________________";
-        final StringBuilder builder = new StringBuilder();
-        builder.append(indent).append(horizontalLine).append('\n');
-        for (String line : output.split("\n")) {
-            builder.append(indent).append(line).append('\n');
-        }
-        builder.append(indent).append(horizontalLine);
-        System.out.println(builder);
+        outputter.printFancyOutput("Bye. Hope to see you again soon!");
     }
 }
