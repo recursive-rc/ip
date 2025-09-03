@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Class that handles formatting output for user.
+ * Handles formatting output for user.
  *
  * <p>All methods in this class are static.</p>
  */
