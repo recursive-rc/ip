@@ -1,5 +1,9 @@
 package ittybotty;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
 import ittybotty.commands.AddTaskCommand;
 import ittybotty.commands.DeleteCommand;
 import ittybotty.commands.ExitCommand;
@@ -9,10 +13,6 @@ import ittybotty.commands.UnmarkTaskCommand;
 import ittybotty.commands.UserCommand;
 import ittybotty.data.TaskList;
 import ittybotty.data.tasks.Task;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";

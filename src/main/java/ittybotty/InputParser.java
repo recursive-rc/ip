@@ -1,5 +1,7 @@
 package ittybotty;
 
+import java.time.LocalDate;
+
 import ittybotty.commands.AddTaskCommand;
 import ittybotty.commands.DeleteCommand;
 import ittybotty.commands.ExitCommand;
@@ -10,8 +12,6 @@ import ittybotty.commands.UserCommand;
 import ittybotty.data.tasks.Event;
 import ittybotty.data.tasks.TaskWithDeadline;
 import ittybotty.data.tasks.ToDo;
-
-import java.time.LocalDate;
 
 public final class InputParser {
     private static final String EXIT_COMMAND = "bye";

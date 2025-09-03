@@ -1,11 +1,5 @@
 package ittybotty;
 
-import ittybotty.data.TaskList;
-import ittybotty.data.tasks.Event;
-import ittybotty.data.tasks.Task;
-import ittybotty.data.tasks.TaskWithDeadline;
-import ittybotty.data.tasks.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +9,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import ittybotty.data.TaskList;
+import ittybotty.data.tasks.Event;
+import ittybotty.data.tasks.Task;
+import ittybotty.data.tasks.TaskWithDeadline;
+import ittybotty.data.tasks.ToDo;
 
 public class SaveFileManager {
     private static final String DEFAULT_FILE_PATH = "./data/tasklist.txt";

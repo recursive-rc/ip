@@ -1,8 +1,8 @@
 package ittybotty.data.tasks;
 
-import ittybotty.OutputFormatter;
-
 import java.time.LocalDate;
+
+import ittybotty.OutputFormatter;
 
 public class TaskWithDeadline extends Task {
     private final LocalDate deadline;
