@@ -16,22 +16,22 @@ import java.util.Scanner;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
-    
+
     private final OutputFormatter outputter;
     private TaskList taskList;
     private SaveFileManager saveManager;
-    
+
     public IttyBotty() {
         this.outputter = new OutputFormatter();
         this.taskList = new TaskList();
         this.saveManager = new SaveFileManager();
     }
-    
+
     public IttyBotty(String saveFilePath) {
         this();
         this.saveManager.setSaveFilePath(saveFilePath);
     }
-    
+
     public static void main(String[] args) {
         IttyBotty bot;
         if (args.length == 0) {
@@ -42,7 +42,7 @@ public class IttyBotty {
         }
         bot.run();
     }
-    
+
     public void run() {
         try {
             this.saveManager.loadFromFile(this.taskList);
@@ -125,7 +125,7 @@ public class IttyBotty {
             }
         }
     }
-    
+
     private void greetUser(boolean isFirstTime, boolean isLoadDataSuccess) {
         String greeting = "Hello! I'm " + IttyBotty.CHATBOT_NAME + "!";
         if (isFirstTime) {

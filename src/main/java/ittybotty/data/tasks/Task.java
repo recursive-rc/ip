@@ -3,15 +3,15 @@ package ittybotty.data.tasks;
 public abstract class Task {
     private final String name;
     private boolean isDone;
-    
+
     private static final String DONE_CHECKBOX = "[X]";
     private static final String UNDONE_CHECKBOX = "[ ]";
-    
+
     public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
-    
+
     public String getName() {
         return this.name;
     }
@@ -23,7 +23,7 @@ public abstract class Task {
         }
         this.isDone = true;
     }
-    
+
     public void unmarkDone() {
         if (!this.isDone) {
             throw new IllegalStateException("ittybotty.data.tasks.Task " + this.name
@@ -31,7 +31,7 @@ public abstract class Task {
         }
         this.isDone = false;
     }
-    
+
     @Override
     public String toString() {
         String checkbox;

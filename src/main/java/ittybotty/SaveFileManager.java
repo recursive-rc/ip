@@ -19,28 +19,28 @@ import java.util.regex.Pattern;
 public class SaveFileManager {
     private static final String DEFAULT_FILE_PATH = "./data/tasklist.txt";
     private File saveFile;
-    
+
     public SaveFileManager() {
         this(SaveFileManager.DEFAULT_FILE_PATH);
     }
-    
+
     public SaveFileManager(String saveFilePath) {
         this.saveFile = new File(saveFilePath);
     }
-    
+
     public void setSaveFilePath(String saveFilePath) {
         // TODO: check if parameter file path is valid
         this.saveFile = new File(saveFilePath);
     }
-    
+
     public void saveToFile(TaskList taskList) throws IOException {
         this.createFileIfDoesNotExistYet();
-        
+
         try (FileWriter writer = new FileWriter(saveFile)) {
             writer.write(taskList.toCsvString() + '\n');
         }
     }
-    
+
     private void createFileIfDoesNotExistYet() throws IOException {
         // Code below inspired by https://stackoverflow.com/a/7469050
         if (!this.saveFile.getParentFile().exists()) {
@@ -50,7 +50,7 @@ public class SaveFileManager {
             this.saveFile.createNewFile();
         }
     }
-    
+
     public void loadFromFile(TaskList taskList) throws IOException {
         List<Task> taskListFromFile = new ArrayList<>();
         try (Scanner scanner = new Scanner(this.saveFile)) {
@@ -64,7 +64,7 @@ public class SaveFileManager {
         }
         taskList.addAll(taskListFromFile);
     }
-    
+
     private Task getTaskFromCsvLine(String csvLine) throws IOException {
         List<String> taskInfo = this.parseCsvLine(csvLine);
         String taskType = taskInfo.get(0);
@@ -83,7 +83,7 @@ public class SaveFileManager {
         }
         return currentTask;
     }
-    
+
     private List<String> parseCsvLine(String line) {
         // Method implementation inspired by
         // https://stackoverflow.com/a/7800519
