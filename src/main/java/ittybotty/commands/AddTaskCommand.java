@@ -2,9 +2,16 @@ package ittybotty.commands;
 
 import ittybotty.data.tasks.Task;
 
+/**
+ * Represents a user command to add a task.
+ */
 public final class AddTaskCommand extends UserCommand {
     private final Task taskToAdd;
-    
+
+    /**
+     * Constructs a command to request to add a task.
+     * @param taskToAdd Task the user wishes to add.
+     */
     public AddTaskCommand(Task taskToAdd) {
         this.taskToAdd = taskToAdd;
     }
