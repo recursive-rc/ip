@@ -17,4 +17,18 @@ public class DeleteCommand extends UserCommand {
                 "taskIndex=" + this.taskIndex +
                 '}';
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof DeleteCommand that)) {
+            return false;
+        }
+
+        return this.taskIndex == that.taskIndex;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.taskIndex;
+    }
 }

@@ -86,4 +86,18 @@ public class TaskList {
         }
         return builder.toString();
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof TaskList taskList)) {
+            return false;
+        }
+
+        return this.tasks.equals(taskList.tasks);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.tasks.hashCode();
+    }
 }

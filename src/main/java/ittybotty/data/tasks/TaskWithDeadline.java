@@ -25,4 +25,23 @@ public class TaskWithDeadline extends Task {
         return String.format("D,%s,\"%s\"", super.toCsvString(),
                 this.deadline);
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (!(o instanceof TaskWithDeadline that)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        return deadline.equals(that.deadline);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + deadline.hashCode();
+        return result;
+    }
 }

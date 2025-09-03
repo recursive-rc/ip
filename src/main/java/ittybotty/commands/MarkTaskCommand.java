@@ -17,4 +17,18 @@ public final class MarkTaskCommand extends UserCommand {
                 "taskIndex=" + taskIndex +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof MarkTaskCommand that)) {
+            return false;
+        }
+
+        return this.taskIndex == that.taskIndex;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.taskIndex;
+    }
 }

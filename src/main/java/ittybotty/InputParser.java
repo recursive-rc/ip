@@ -37,9 +37,9 @@ public final class InputParser {
         // Code to get task index from input string
         // inspired from https://stackoverflow.com/a/2338819
         if (input.equals(InputParser.LIST_COMMAND)) {
-            return new ListCommand();
+            return ListCommand.getInstance();
         } else if (input.equals(InputParser.EXIT_COMMAND)) {
-            return new ExitCommand();
+            return ExitCommand.getInstance();
         } else if (input.matches(InputParser.MARK_COMMAND_REGEX)) {
             final int taskIndex = Integer.parseInt(
                     input.replaceAll("\\D", ""));
@@ -91,8 +91,6 @@ public final class InputParser {
             throw new IllegalArgumentException("Invalid user input");
         }
     }
-    
-    // TODO: explore creating singletons for some commands (e.g., exit, list)
     
     private LocalDate parseDate(String dateAsString) {
         return LocalDate.parse(dateAsString);
