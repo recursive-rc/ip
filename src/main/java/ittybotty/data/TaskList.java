@@ -31,7 +31,7 @@ public class TaskList {
      * @return The task that was removed.
      */
     public Task removeTask(int index) {
-        return this.tasks.remove(index - 1);  // `- 1` because 1-indexed
+        return this.tasks.remove(index - 1); // `- 1` because 1-indexed
     }
 
     public Task getTaskAt(int index) {
@@ -44,7 +44,7 @@ public class TaskList {
      * @return The task marked as complete.
      */
     public Task markTask(int index) {
-        Task markedTask = this.tasks.get(index - 1);  // `- 1` because 1-indexed
+        Task markedTask = this.tasks.get(index - 1); // `- 1` because 1-indexed
         markedTask.markDone();
         return markedTask;
     }
@@ -60,7 +60,7 @@ public class TaskList {
      * @return The task unmarked.
      */
     public Task unmarkTask(int index) {
-        Task unmarkedTask = this.tasks.get(index - 1);  // `- 1` because 1-indexed
+        Task unmarkedTask = this.tasks.get(index - 1); // `- 1` because 1-indexed
         unmarkedTask.unmarkDone();
         return unmarkedTask;
     }
