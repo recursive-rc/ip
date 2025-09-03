@@ -1,10 +1,10 @@
 package ittybotty.data;
 
+import ittybotty.data.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import ittybotty.data.tasks.Task;
 
 /**
  * Represents a list of tasks.
@@ -134,5 +134,35 @@ public class TaskList {
     @Override
     public int hashCode() {
         return this.tasks.hashCode();
+    }
+
+    public List<Task> getTasksMatching(String searchTerm) {
+        return this.tasks.stream()
+                .filter(t -> t.getName().contains(searchTerm))
+                .toList();
+    }
+
+    /**
+     * Returns a string representation of the task that
+     * includes its index (in the list, 1-indexed) at the start.
+     *
+     * <p>For use when printing a subset of the list or when
+     * printing the list in a different order, so that user
+     * can see the correct index for commands such as mark/delete.</p>
+     *
+     * @param task Task to print. Must have already been added to the
+     *             list.
+     * @throws RuntimeException If given task is not inside the task
+     *                          list.
+     */
+    public String getTaskWithIndex(Task task) {
+        if (!this.tasks.contains(task)) {
+            throw new RuntimeException("Task " + task + " not in task list.");
+            // TODO: consider creating a new exception subclass
+        }
+
+        int taskIndex = this.tasks.indexOf(task) + 1; // 1-indexed
+        assert taskIndex > 0;
+        return taskIndex + ". " + task;
     }
 }

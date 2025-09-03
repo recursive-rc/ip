@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import ittybotty.commands.AddTaskCommand;
 import ittybotty.commands.DeleteCommand;
 import ittybotty.commands.ExitCommand;
+import ittybotty.commands.FindCommand;
 import ittybotty.commands.ListCommand;
 import ittybotty.commands.MarkTaskCommand;
 import ittybotty.commands.UnmarkTaskCommand;
@@ -27,7 +28,7 @@ public final class InputParser {
     private static final String ADD_EVENT_REGEX =
             "event.*";
     private static final String DELETE_COMMAND_REGEX = "delete.*";
-
+private static final String FIND_COMMAND_REGEX = "find\\s+\\S+";
     /**
      * Parses user input to get corresponding user command object.
      *
@@ -90,6 +91,9 @@ public final class InputParser {
                     input.replaceAll("\\D", ""));
             // TODO: handle missing/non-integer index
             return new DeleteCommand(taskIndex);
+        } else if (input.matches(InputParser.FIND_COMMAND_REGEX)) {
+            final String searchTerm = input.replaceFirst("find\\s+", "");
+            return new FindCommand(searchTerm);
         } else {
             throw new IllegalArgumentException("Invalid user input");
         }
