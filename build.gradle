@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("IttyBotty")
+    mainClass.set("ittybotty.IttyBotty")
 }
 
 checkstyle {
