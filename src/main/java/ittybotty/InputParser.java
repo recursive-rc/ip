@@ -13,6 +13,9 @@ import ittybotty.data.tasks.ToDo;
 
 import java.time.LocalDate;
 
+/**
+ * Parses user input.
+ */
 public final class InputParser {
     private static final String EXIT_COMMAND = "bye";
     private static final String LIST_COMMAND = "list";
