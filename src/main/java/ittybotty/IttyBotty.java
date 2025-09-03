@@ -3,6 +3,7 @@ package ittybotty;
 import ittybotty.commands.AddTaskCommand;
 import ittybotty.commands.DeleteCommand;
 import ittybotty.commands.ExitCommand;
+import ittybotty.commands.FindCommand;
 import ittybotty.commands.ListCommand;
 import ittybotty.commands.MarkTaskCommand;
 import ittybotty.commands.UnmarkTaskCommand;
@@ -12,26 +13,27 @@ import ittybotty.data.tasks.Task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
-    
+
     private final OutputFormatter outputter;
     private TaskList taskList;
     private SaveFileManager saveManager;
-    
+
     public IttyBotty() {
         this.outputter = new OutputFormatter();
         this.taskList = new TaskList();
         this.saveManager = new SaveFileManager();
     }
-    
+
     public IttyBotty(String saveFilePath) {
         this();
         this.saveManager.setSaveFilePath(saveFilePath);
     }
-    
+
     public static void main(String[] args) {
         IttyBotty bot;
         if (args.length == 0) {
@@ -42,7 +44,7 @@ public class IttyBotty {
         }
         bot.run();
     }
-    
+
     public void run() {
         try {
             this.saveManager.loadFromFile(this.taskList);
@@ -108,6 +110,10 @@ public class IttyBotty {
                         deletedTask +
                         "\nYou have " + this.taskList.size() + " tasks remaining.");
                 hasListChanged = true;
+            } else if (command instanceof FindCommand findCommand) {
+                final String searchTerm = findCommand.getSearchTerm();
+                final List<Task> searchResults = this.taskList.getTasksMatching(searchTerm);
+                this.outputter.showSearchResults(searchResults);
             } else {
                 throw new IllegalStateException("Unknown user command.");
             }
@@ -125,7 +131,7 @@ public class IttyBotty {
             }
         }
     }
-    
+
     private void greetUser(boolean isFirstTime, boolean isLoadDataSuccess) {
         String greeting = "Hello! I'm " + IttyBotty.CHATBOT_NAME + "!";
         if (isFirstTime) {
