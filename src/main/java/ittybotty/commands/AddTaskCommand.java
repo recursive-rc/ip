@@ -19,4 +19,18 @@ public final class AddTaskCommand extends UserCommand {
                 "taskToAdd='" + this.taskToAdd + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof AddTaskCommand that)) {
+            return false;
+        }
+
+        return this.taskToAdd.equals(that.taskToAdd);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.taskToAdd.hashCode();
+    }
 }
