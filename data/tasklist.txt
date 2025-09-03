@@ -1,0 +1,6 @@
+T,false,"borrow book"
+E,false,"birthday","2025-10-10","2025-10-10"
+D,false,"buy birthday present","2025-10-08"
+D,false,"wrap birthday present","2025-10-09"
+D,false,"return book","2025-09-30"
+

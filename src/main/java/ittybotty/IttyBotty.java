@@ -113,7 +113,7 @@ public class IttyBotty {
             } else if (command instanceof FindCommand findCommand) {
                 final String searchTerm = findCommand.getSearchTerm();
                 final List<Task> searchResults = this.taskList.getTasksMatching(searchTerm);
-                this.outputter.showSearchResults(searchResults);
+                this.outputter.showSearchResults(searchResults, this.taskList);
             } else {
                 throw new IllegalStateException("Unknown user command.");
             }
