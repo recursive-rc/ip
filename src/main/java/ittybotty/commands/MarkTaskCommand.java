@@ -22,12 +22,12 @@ public final class MarkTaskCommand extends UserCommand {
     public int getTaskIndex() {
         return taskIndex;
     }
-    
+
     @Override
     public String toString() {
-        return "ittybotty.commands.MarkTaskCommand{" +
-                "taskIndex=" + taskIndex +
-                '}';
+        return "ittybotty.commands.MarkTaskCommand{"
+                + "taskIndex=" + taskIndex
+                + '}';
     }
 
     @Override

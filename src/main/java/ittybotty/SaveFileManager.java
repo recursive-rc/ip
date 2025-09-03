@@ -1,11 +1,5 @@
 package ittybotty;
 
-import ittybotty.data.TaskList;
-import ittybotty.data.tasks.Event;
-import ittybotty.data.tasks.Task;
-import ittybotty.data.tasks.TaskWithDeadline;
-import ittybotty.data.tasks.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +9,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import ittybotty.data.TaskList;
+import ittybotty.data.tasks.Event;
+import ittybotty.data.tasks.Task;
+import ittybotty.data.tasks.TaskWithDeadline;
+import ittybotty.data.tasks.ToDo;
 
 /**
  * Manages saving data to disk file, and loading data from the file.
@@ -55,7 +55,7 @@ public class SaveFileManager {
      */
     public void saveToFile(TaskList taskList) throws IOException {
         this.createFileIfDoesNotExistYet();
-        
+
         try (FileWriter writer = new FileWriter(saveFile)) {
             writer.write(taskList.toCsvString() + '\n');
         }
@@ -96,7 +96,7 @@ public class SaveFileManager {
         }
         taskList.addAll(taskListFromFile);
     }
-    
+
     private Task getTaskFromCsvLine(String csvLine) throws IOException {
         List<String> taskInfo = this.parseCsvLine(csvLine);
         String taskType = taskInfo.get(0);
@@ -115,7 +115,7 @@ public class SaveFileManager {
         }
         return currentTask;
     }
-    
+
     private List<String> parseCsvLine(String line) {
         // Method implementation inspired by
         // https://stackoverflow.com/a/7800519
@@ -125,7 +125,7 @@ public class SaveFileManager {
         List<String> result = new ArrayList<>();
         while (matcher.find()) {
             String item = matcher.group(1);
-            if (item.matches("\".+\"")) {  // starts & ends with double quotes
+            if (item.matches("\".+\"")) { // starts & ends with double quotes
                 item = item.substring(1, item.length() - 1);
                 // Remove double quotes at start and end
             }

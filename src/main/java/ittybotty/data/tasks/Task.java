@@ -4,11 +4,11 @@ package ittybotty.data.tasks;
  * Represents a task that is either done or yet to be done.
  */
 public abstract class Task {
-    private final String name;
-    private boolean isDone;
-    
     private static final String DONE_CHECKBOX = "[X]";
     private static final String UNDONE_CHECKBOX = "[ ]";
+
+    private final String name;
+    private boolean isDone;
 
     /**
      * Constructs a task with the given description.

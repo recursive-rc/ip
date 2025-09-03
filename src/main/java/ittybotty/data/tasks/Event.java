@@ -1,8 +1,8 @@
 package ittybotty.data.tasks;
 
-import ittybotty.OutputFormatter;
-
 import java.time.LocalDate;
+
+import ittybotty.OutputFormatter;
 
 /**
  * Represents an event with a start and end date.
@@ -25,9 +25,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                " (from: " + OutputFormatter.formatDateForOutput(this.startDate) +
-                " to: " + OutputFormatter.formatDateForOutput(this.endDate) + ")";
+        return "[E]" + super.toString()
+                + " (from: " + OutputFormatter.formatDateForOutput(this.startDate)
+                + " to: " + OutputFormatter.formatDateForOutput(this.endDate) + ")";
     }
 
     @Override

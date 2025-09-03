@@ -1,5 +1,7 @@
 package ittybotty;
 
+import java.time.LocalDate;
+
 import ittybotty.commands.AddTaskCommand;
 import ittybotty.commands.DeleteCommand;
 import ittybotty.commands.ExitCommand;
@@ -10,8 +12,6 @@ import ittybotty.commands.UserCommand;
 import ittybotty.data.tasks.Event;
 import ittybotty.data.tasks.TaskWithDeadline;
 import ittybotty.data.tasks.ToDo;
-
-import java.time.LocalDate;
 
 /**
  * Parses user input.
@@ -27,7 +27,7 @@ public final class InputParser {
     private static final String ADD_EVENT_REGEX =
             "event.*";
     private static final String DELETE_COMMAND_REGEX = "delete.*";
-    
+
     /**
      * Parses user input to get corresponding user command object.
      *
@@ -94,7 +94,7 @@ public final class InputParser {
             throw new IllegalArgumentException("Invalid user input");
         }
     }
-    
+
     private LocalDate parseDate(String dateAsString) {
         return LocalDate.parse(dateAsString);
         // TODO: allow more date formats

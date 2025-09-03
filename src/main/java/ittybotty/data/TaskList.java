@@ -1,10 +1,10 @@
 package ittybotty.data;
 
-import ittybotty.data.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import ittybotty.data.tasks.Task;
 
 /**
  * Represents a list of tasks.
@@ -45,14 +45,14 @@ public class TaskList {
     public boolean addAll(Collection<? extends Task> c) {
         return tasks.addAll(c);
     }
-    
+
     /**
      * Removes task at the given index (1-indexed) from the list.
      * @param index Index of the task to be deleted (1-indexed).
      * @return The task that was removed.
      */
     public Task removeTask(int index) {
-        return this.tasks.remove(index - 1);  // `- 1` because 1-indexed
+        return this.tasks.remove(index - 1); // `- 1` because 1-indexed
     }
 
     /**
@@ -62,14 +62,14 @@ public class TaskList {
     public Task getTaskAt(int index) {
         return tasks.get(index);
     }
-    
+
     /**
      * Marks the task at given index (1-indexed) as complete.
      * @param index Index of task to be marked (1-indexed).
      * @return The task marked as complete.
      */
     public Task markTask(int index) {
-        Task markedTask = this.tasks.get(index - 1);  // `- 1` because 1-indexed
+        Task markedTask = this.tasks.get(index - 1); // `- 1` because 1-indexed
         markedTask.markDone();
         return markedTask;
     }
@@ -80,7 +80,7 @@ public class TaskList {
     public int size() {
         return this.tasks.size();
     }
-    
+
     /**
      * Unmarks the task at the given index (1-indexed), so that
      * it is no longer marked as complete.
@@ -88,7 +88,7 @@ public class TaskList {
      * @return The task unmarked.
      */
     public Task unmarkTask(int index) {
-        Task unmarkedTask = this.tasks.get(index - 1);  // `- 1` because 1-indexed
+        Task unmarkedTask = this.tasks.get(index - 1); // `- 1` because 1-indexed
         unmarkedTask.unmarkDone();
         return unmarkedTask;
     }
@@ -113,7 +113,7 @@ public class TaskList {
         }
         return builder.toString();
     }
-    
+
     public String toCsvString() {
         StringBuilder builder = new StringBuilder();
         for (Task task : this.tasks) {
