@@ -4,16 +4,25 @@ import ittybotty.OutputFormatter;
 
 import java.time.LocalDate;
 
+/**
+ * Represents an event with a start and end date.
+ */
 public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    /**
+     * Constructs an event.
+     * @param name Event description.
+     * @param startDate Event start date.
+     * @param endDate Event end date.
+     */
     public Event(String name, LocalDate startDate, LocalDate endDate) {
         super(name);
         this.startDate = startDate;
         this.endDate = endDate;
     }
-    
+
     @Override
     public String toString() {
         return "[E]" + super.toString() +

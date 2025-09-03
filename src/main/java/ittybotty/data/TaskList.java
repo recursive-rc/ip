@@ -6,21 +6,42 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private final List<Task> tasks;
-    
+
+    /**
+     * Constructs an empty list of tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
-    
+
+    /**
+     * Constructs a list of tasks from the given list.
+     *
+     * <p>Does not create a deep copy of the given list.</p>
+     * @param tasks List of tasks to store.
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
-    
+
+    /**
+     * Add a task to the end of the list.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
-    
+
+    /**
+     * Add all tasks from the given collection to this list.
+     * @param c Collection of tasks to add.
+     * @return true if the list is changed as a result of
+     *         calling this method.
+     */
     public boolean addAll(Collection<? extends Task> c) {
         return tasks.addAll(c);
     }
@@ -33,7 +54,11 @@ public class TaskList {
     public Task removeTask(int index) {
         return this.tasks.remove(index - 1);  // `- 1` because 1-indexed
     }
-    
+
+    /**
+     * Returns the task at the given index (0-indexed).
+     * @param index Index of the task to return (0-indexed).
+     */
     public Task getTaskAt(int index) {
         return tasks.get(index);
     }
@@ -48,7 +73,10 @@ public class TaskList {
         markedTask.markDone();
         return markedTask;
     }
-    
+
+    /**
+     * Returns number of tasks in the list.
+     */
     public int size() {
         return this.tasks.size();
     }
@@ -64,7 +92,14 @@ public class TaskList {
         unmarkedTask.unmarkDone();
         return unmarkedTask;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Each task is printed in a separate line, prefixed with the
+     * task's index followed by a period (such as "2." for the
+     * 2nd task).</p>
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
