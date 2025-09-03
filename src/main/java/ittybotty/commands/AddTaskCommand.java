@@ -15,9 +15,9 @@ public final class AddTaskCommand extends UserCommand {
 
     @Override
     public String toString() {
-        return "ittybotty.commands.AddTaskCommand{" +
-                "taskToAdd='" + this.taskToAdd + '\'' +
-                '}';
+        return "ittybotty.commands.AddTaskCommand{"
+                + "taskToAdd='" + this.taskToAdd + '\''
+                + '}';
     }
 
     @Override

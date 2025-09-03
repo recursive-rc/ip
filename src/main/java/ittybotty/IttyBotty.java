@@ -64,12 +64,12 @@ public class IttyBotty {
             try {
                 command = parser.parseInput(userInput);
             } catch (EmptyDescriptionException e) {
-                this.outputter.printFancyOutput("Oh no! The " + e.getTaskType() +
-                        " description is empty.");
+                this.outputter.printFancyOutput("Oh no! The " + e.getTaskType()
+                        + " description is empty.");
                 continue;
             } catch (IllegalArgumentException e) {
-                this.outputter.printFancyOutput("Oh no! ittybotty.IttyBotty does not " +
-                        "recognise this command.");
+                this.outputter.printFancyOutput("Oh no! ittybotty.IttyBotty does not "
+                        + "recognise this command.");
                 continue;
             }
             // TODO: Use dynamic binding to replace instanceof checks below
@@ -77,24 +77,24 @@ public class IttyBotty {
                 Task newTask = addTaskCommand.getTask();
                 this.taskList.addTask(newTask);
                 this.outputter.printFancyOutput(
-                        "Successfully added the following task:\n" +
-                                newTask +
-                                "\nYou now have " + taskList.size() +
-                                " tasks stored.");
+                        "Successfully added the following task:\n"
+                                + newTask
+                                + "\nYou now have " + taskList.size()
+                                + " tasks stored.");
                 hasListChanged = true;
             } else if (command instanceof MarkTaskCommand markCommand) {
                 Task markedTask = this.taskList.markTask(markCommand.getTaskIndex());
                 // TODO: handle IndexOutOfBoundsException
-                this.outputter.printFancyOutput("Good job! " +
-                        "The task below is recorded as done!\n" +
-                        markedTask);
+                this.outputter.printFancyOutput("Good job! "
+                        + "The task below is recorded as done!\n"
+                        + markedTask);
                 hasListChanged = true;
             } else if (command instanceof UnmarkTaskCommand unmarkCommand) {
                 Task taskToUnmark = this.taskList.unmarkTask(unmarkCommand.getTaskIndex());
                 // TODO: handle IndexOutOfBoundsException
-                this.outputter.printFancyOutput("Alright, " +
-                        "The task below has been unmarked!\n" +
-                        taskToUnmark);
+                this.outputter.printFancyOutput("Alright, "
+                        + "The task below has been unmarked!\n"
+                        + taskToUnmark);
                 hasListChanged = true;
             } else if (command instanceof ListCommand) {
                 this.outputter.printFancyOutput(this.taskList.toString());
@@ -104,9 +104,9 @@ public class IttyBotty {
             } else if (command instanceof DeleteCommand deleteCommand) {
                 final Task deletedTask = this.taskList.removeTask(
                         deleteCommand.getTaskIndex());
-                this.outputter.printFancyOutput("Successfully deleted:\n" +
-                        deletedTask +
-                        "\nYou have " + this.taskList.size() + " tasks remaining.");
+                this.outputter.printFancyOutput("Successfully deleted:\n"
+                        + deletedTask
+                        + "\nYou have " + this.taskList.size() + " tasks remaining.");
                 hasListChanged = true;
             } else {
                 throw new IllegalStateException("Unknown user command.");
@@ -116,8 +116,8 @@ public class IttyBotty {
                     this.saveManager.saveToFile(this.taskList);
                 } catch (IOException e) {
                     this.outputter.printFancyOutput(
-                            "Unfortunately, we could not save this " +
-                            "change to your task list :(.");
+                            "Unfortunately, we could not save this "
+                            + "change to your task list :(.");
                     // For debug only
                     // TODO: delete before production
                     System.err.println(e.getMessage());
@@ -133,9 +133,9 @@ public class IttyBotty {
         } else if (isLoadDataSuccess) {
             greeting += "\nSuccessfully loaded task list!";
         } else {
-            greeting += "Unfortunately, it looks like the previous " +
-                    "save data has been corrupted,\nso we'll need to " +
-                    "start from scratch.";
+            greeting += "Unfortunately, it looks like the previous "
+                    + "save data has been corrupted,\nso we'll need to "
+                    + "start from scratch.";
         }
         this.outputter.printFancyOutput(greeting);
     }

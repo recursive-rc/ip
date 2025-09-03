@@ -13,9 +13,9 @@ public class DeleteCommand extends UserCommand {
 
     @Override
     public String toString() {
-        return "ittybotty.commands.DeleteCommand{" +
-                "taskIndex=" + this.taskIndex +
-                '}';
+        return "ittybotty.commands.DeleteCommand{"
+                + "taskIndex=" + this.taskIndex
+                + '}';
     }
 
     @Override

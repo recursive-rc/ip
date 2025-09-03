@@ -13,9 +13,9 @@ public final class MarkTaskCommand extends UserCommand {
 
     @Override
     public String toString() {
-        return "ittybotty.commands.MarkTaskCommand{" +
-                "taskIndex=" + taskIndex +
-                '}';
+        return "ittybotty.commands.MarkTaskCommand{"
+                + "taskIndex=" + taskIndex
+                + '}';
     }
 
     @Override
