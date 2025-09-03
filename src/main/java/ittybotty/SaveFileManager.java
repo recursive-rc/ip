@@ -93,7 +93,7 @@ public class SaveFileManager {
         List<String> result = new ArrayList<>();
         while (matcher.find()) {
             String item = matcher.group(1);
-            if (item.matches("\".+\"")) {  // starts & ends with double quotes
+            if (item.matches("\".+\"")) { // starts & ends with double quotes
                 item = item.substring(1, item.length() - 1);
                 // Remove double quotes at start and end
             }
