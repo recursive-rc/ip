@@ -17,7 +17,6 @@ public class TaskWithDeadline extends Task {
         return "[D]" + super.toString()
                 + " (by: " + OutputFormatter.formatDateForOutput(this.deadline)
                 + ")";
-        // TODO: change format of date output
     }
 
     @Override

@@ -7,8 +7,7 @@ import java.time.LocalDate;
 public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
-    // TODO: convert the above to proper date/time types
-    
+
     public Event(String name, LocalDate startDate, LocalDate endDate) {
         super(name);
         this.startDate = startDate;
