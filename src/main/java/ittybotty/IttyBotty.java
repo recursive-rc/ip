@@ -149,4 +149,9 @@ public class IttyBotty {
     private void exit() {
         this.outputter.printFancyOutput("Bye. Hope to see you again soon!");
     }
+
+    public String handleInputAndGetOutput(String userInput) {
+        // TODO
+        return "Placeholder output";
+    }
 }
