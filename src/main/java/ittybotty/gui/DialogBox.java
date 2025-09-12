@@ -15,14 +15,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class DialogBox extends HBox {
-    @FXML
-    private ImageView speakerPicture;
-
-    @FXML
-    private Label messageLabel;
-
     private static final Image userImage = GuiUtils.getImage("weber.jpg");
     private static final Image botImage = GuiUtils.getImage("durkheim.jpg");
+
+    @FXML
+    private ImageView speakerPicture;
+    @FXML
+    private Label messageLabel;
 
     private DialogBox(String messageText, Image image) {
         try {
@@ -31,7 +30,7 @@ public class DialogBox extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();  // TODO: better error handling
+            e.printStackTrace(); // TODO: better error handling
         }
 
         this.messageLabel.setText(messageText);
