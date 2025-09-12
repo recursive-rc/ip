@@ -15,6 +15,7 @@ import ittybotty.commands.UnmarkTaskCommand;
 import ittybotty.commands.UserCommand;
 import ittybotty.data.TaskList;
 import ittybotty.data.tasks.Task;
+import ittybotty.gui.MainWindow;
 
 public class IttyBotty {
     private static final String CHATBOT_NAME = "Itty-Botty";
@@ -22,6 +23,8 @@ public class IttyBotty {
     private final OutputFormatter outputter;
     private TaskList taskList;
     private SaveFileManager saveManager;
+
+    private MainWindow mainWindow;
 
     public IttyBotty() {
         this.outputter = new OutputFormatter();
@@ -130,6 +133,10 @@ public class IttyBotty {
                 }
             }
         }
+    }
+
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
 
     private void greetUser(boolean isFirstTime, boolean isLoadDataSuccess) {

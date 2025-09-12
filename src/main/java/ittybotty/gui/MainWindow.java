@@ -33,6 +33,7 @@ public class MainWindow extends AnchorPane {
     public void setBot(IttyBotty bot) {
         requireNonNull(bot);
         this.bot = bot;
+        this.bot.setMainWindow(this);
     }
 
     @FXML
