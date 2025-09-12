@@ -48,11 +48,19 @@ public class MainWindow extends AnchorPane {
     }
 
     private void sendUserMessage(String userMessage) {
+        requireNonNull(this.dialogContainer);
+        requireNonNull(userMessage);
         this.dialogContainer.getChildren().add(
                 DialogBox.getUserDialog(userMessage));
     }
 
-    private void sendBotMessage(String botMessage) {
+    /**
+     * Shows message from bot to user in GUI.
+     * @param botMessage Message for bot to send.
+     */
+    public void sendBotMessage(String botMessage) {
+        requireNonNull(this.dialogContainer);
+        requireNonNull(botMessage);
         this.dialogContainer.getChildren().add(
                 DialogBox.getBotDialog(botMessage));
     }
