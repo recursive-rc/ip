@@ -62,17 +62,19 @@ public class OutputFormatter {
     }
 
     /**
-     * Outputs search results to the user.
+     * Returns String representation of search results.
      *
      * @param searchResults The search results only. All search results
      *                      should be inside in the {@code taskList}.
      * @param taskList Complete list of all tasks of the user, not just
      *                 the search results.
+     * @return String representation of bot message with search results,
+     *                including their index in the {@code taskList}.
      * @throws RuntimeException If at least one of the tasks in
      *                          {@code searchResults} cannot be found
      *                          in {@code taskList}.
      */
-    public void showSearchResults(List<Task> searchResults, TaskList taskList) {
+    public String getFormattedSearchResults(List<Task> searchResults, TaskList taskList) {
         String output;
         if (searchResults.isEmpty()) {
             output = "No matching tasks found. :(";
@@ -82,6 +84,6 @@ public class OutputFormatter {
                 output += taskList.getTaskWithIndex(t) + "\n";
             }
         }
-        this.printFancyOutput(output);
+        return output;
     }
 }

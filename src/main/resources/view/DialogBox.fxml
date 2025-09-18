@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root xmlns:fx="http://javafx.com/fxml/1"
+         alignment="TOP_RIGHT"
+         maxHeight="Infinity"
+         maxWidth="Infinity"
+         prefWidth="400.0"
+         xmlns="http://javafx.com/javafx/17"
+         type="javafx.scene.layout.HBox">
+    <padding>
+        <Insets bottom="15.0"
+                left="5.0"
+                right="5.0"
+                top="15.0"/>
+    </padding>
+
+    <Label fx:id="messageLabel"
+           minHeight="-Infinity"
+           text="Placeholder"
+           wrapText="true"/>
+    <ImageView fx:id="speakerPicture"
+               fitHeight="99.0"
+               fitWidth="99.0"
+               pickOnBounds="true"
+               preserveRatio="true"/>
+</fx:root>
