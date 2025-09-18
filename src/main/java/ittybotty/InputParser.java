@@ -28,7 +28,7 @@ public final class InputParser {
     private static final String ADD_EVENT_REGEX =
             "event.*";
     private static final String DELETE_COMMAND_REGEX = "delete.*";
-private static final String FIND_COMMAND_REGEX = "find\\s+\\S+";
+    private static final String FIND_COMMAND_REGEX = "find\\s+\\S+";
     /**
      * Parses user input to get corresponding user command object.
      *

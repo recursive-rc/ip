@@ -1,10 +1,10 @@
 package ittybotty.data;
 
-import ittybotty.data.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import ittybotty.data.tasks.Task;
 
 /**
  * Represents a list of tasks.

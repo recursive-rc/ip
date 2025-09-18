@@ -21,9 +21,9 @@ public class FindCommand extends UserCommand {
 
     @Override
     public String toString() {
-        return "FindCommand{" +
-                "searchTerm='" + this.searchTerm + '\'' +
-                '}';
+        return "FindCommand{"
+                + "searchTerm='" + this.searchTerm + '\''
+                + '}';
     }
 
     @Override
