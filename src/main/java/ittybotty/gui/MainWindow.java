@@ -4,6 +4,7 @@ package ittybotty.gui;
 import static java.util.Objects.requireNonNull;
 
 import ittybotty.IttyBotty;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -44,6 +45,11 @@ public class MainWindow extends AnchorPane {
 
         String botOutput = this.bot.handleInputAndGetOutput(userInput);
         this.sendBotMessage(botOutput);
+
+        if (this.bot.isToExit()) {
+            // TODO: add short delay before exiting, so user can see exit message
+            Platform.exit();
+        }
         // TODO: consider if this violates if SLAP and if it's worthwhile to change
     }
 

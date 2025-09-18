@@ -3,7 +3,6 @@ package ittybotty;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 import ittybotty.commands.AddTaskCommand;
 import ittybotty.commands.DeleteCommand;
@@ -26,10 +25,13 @@ public class IttyBotty {
 
     private MainWindow mainWindow;
 
+    private boolean isToExit;
+
     public IttyBotty() {
         this.outputter = new OutputFormatter();
         this.taskList = new TaskList();
         this.saveManager = new SaveFileManager();
+        this.isToExit = false;
     }
 
     public IttyBotty(String saveFilePath) {
@@ -48,6 +50,10 @@ public class IttyBotty {
         bot.run();
     }
 
+    public boolean isToExit() {
+        return this.isToExit;
+    }
+
     public void run() {
         try {
             this.saveManager.loadFromFile(this.taskList);
@@ -58,81 +64,6 @@ public class IttyBotty {
             this.greetUser(false, false);
         }
 
-        boolean hasExited = false;
-        boolean hasListChanged;
-        Scanner scanner = new Scanner(System.in);
-        InputParser parser = new InputParser();
-        while (!hasExited) {
-            hasListChanged = false;
-            String userInput = scanner.nextLine();
-            UserCommand command;
-            try {
-                command = parser.parseInput(userInput);
-            } catch (EmptyDescriptionException e) {
-                this.outputter.printFancyOutput("Oh no! The " + e.getTaskType()
-                        + " description is empty.");
-                continue;
-            } catch (IllegalArgumentException e) {
-                this.outputter.printFancyOutput("Oh no! ittybotty.IttyBotty does not "
-                        + "recognise this command.");
-                continue;
-            }
-            // TODO: Use dynamic binding to replace instanceof checks below
-            if (command instanceof AddTaskCommand addTaskCommand) {
-                Task newTask = addTaskCommand.getTask();
-                this.taskList.addTask(newTask);
-                this.outputter.printFancyOutput(
-                        "Successfully added the following task:\n"
-                                + newTask
-                                + "\nYou now have " + taskList.size()
-                                + " tasks stored.");
-                hasListChanged = true;
-            } else if (command instanceof MarkTaskCommand markCommand) {
-                Task markedTask = this.taskList.markTask(markCommand.getTaskIndex());
-                // TODO: handle IndexOutOfBoundsException
-                this.outputter.printFancyOutput("Good job! "
-                        + "The task below is recorded as done!\n"
-                        + markedTask);
-                hasListChanged = true;
-            } else if (command instanceof UnmarkTaskCommand unmarkCommand) {
-                Task taskToUnmark = this.taskList.unmarkTask(unmarkCommand.getTaskIndex());
-                // TODO: handle IndexOutOfBoundsException
-                this.outputter.printFancyOutput("Alright, "
-                        + "The task below has been unmarked!\n"
-                        + taskToUnmark);
-                hasListChanged = true;
-            } else if (command instanceof ListCommand) {
-                this.outputter.printFancyOutput(this.taskList.toString());
-            } else if (command instanceof ExitCommand) {
-                this.exit();
-                hasExited = true;
-            } else if (command instanceof DeleteCommand deleteCommand) {
-                final Task deletedTask = this.taskList.removeTask(
-                        deleteCommand.getTaskIndex());
-                this.outputter.printFancyOutput("Successfully deleted:\n"
-                        + deletedTask
-                        + "\nYou have " + this.taskList.size() + " tasks remaining.");
-                hasListChanged = true;
-            } else if (command instanceof FindCommand findCommand) {
-                final String searchTerm = findCommand.getSearchTerm();
-                final List<Task> searchResults = this.taskList.getTasksMatching(searchTerm);
-                this.outputter.showSearchResults(searchResults, this.taskList);
-            } else {
-                throw new IllegalStateException("Unknown user command.");
-            }
-            if (hasListChanged) {
-                try {
-                    this.saveManager.saveToFile(this.taskList);
-                } catch (IOException e) {
-                    this.outputter.printFancyOutput(
-                            "Unfortunately, we could not save this "
-                            + "change to your task list :(.");
-                    // For debug only
-                    // TODO: delete before production
-                    System.err.println(e.getMessage());
-                }
-            }
-        }
     }
 
     public void setMainWindow(MainWindow mainWindow) {
@@ -150,7 +81,7 @@ public class IttyBotty {
                     + "save data has been corrupted,\nso we'll need to "
                     + "start from scratch.";
         }
-        this.outputter.printFancyOutput(greeting);
+        this.mainWindow.sendBotMessage(greeting);
     }
 
     private void exit() {
@@ -158,7 +89,74 @@ public class IttyBotty {
     }
 
     public String handleInputAndGetOutput(String userInput) {
-        // TODO
-        return "Placeholder output";
+        boolean hasListChanged;
+        InputParser parser = new InputParser();
+        hasListChanged = false;
+        UserCommand command;
+
+        try {
+            command = parser.parseInput(userInput);
+        } catch (EmptyDescriptionException e) {
+            return "Oh no! The " + e.getTaskType() + " description is empty.";
+        } catch (IllegalArgumentException e) {
+            return "Oh no! ittybotty.IttyBotty does not " + "recognise this command.";
+        }
+
+        String botOutput = "";
+
+        // TODO: Use dynamic binding to replace instanceof checks below
+        if (command instanceof AddTaskCommand addTaskCommand) {
+            Task newTask = addTaskCommand.getTask();
+            this.taskList.addTask(newTask);
+            botOutput = "Successfully added the following task:\n"
+                            + newTask
+                            + "\nYou now have " + taskList.size()
+                            + " tasks stored.";
+            hasListChanged = true;
+        } else if (command instanceof MarkTaskCommand markCommand) {
+            Task markedTask = this.taskList.markTask(markCommand.getTaskIndex());
+            // TODO: handle IndexOutOfBoundsException
+            botOutput = "Good job! The task below is recorded as done!\n"
+                    + markedTask;
+            hasListChanged = true;
+        } else if (command instanceof UnmarkTaskCommand unmarkCommand) {
+            Task taskToUnmark = this.taskList.unmarkTask(unmarkCommand.getTaskIndex());
+            // TODO: handle IndexOutOfBoundsException
+            botOutput = "Alright, The task below has been unmarked!\n"
+                    + taskToUnmark;
+            hasListChanged = true;
+        } else if (command instanceof ListCommand) {
+            botOutput = this.taskList.toString();
+        } else if (command instanceof ExitCommand) {
+            this.isToExit = true;
+        } else if (command instanceof DeleteCommand deleteCommand) {
+            final Task deletedTask = this.taskList.removeTask(
+                    deleteCommand.getTaskIndex());
+            botOutput = "Successfully deleted:\n" + deletedTask
+                    + "\nYou have " + this.taskList.size() + " tasks remaining.";
+            hasListChanged = true;
+        } else if (command instanceof FindCommand findCommand) {
+            final String searchTerm = findCommand.getSearchTerm();
+            final List<Task> searchResults = this.taskList.getTasksMatching(searchTerm);
+            botOutput = this.outputter.getFormattedSearchResults(searchResults,
+                    this.taskList);
+        } else {
+            throw new IllegalStateException("Unknown user command.");
+        }
+
+        if (hasListChanged) {
+            try {
+                this.saveManager.saveToFile(this.taskList);
+            } catch (IOException e) {
+                this.outputter.printFancyOutput(
+                        "Unfortunately, we could not save this "
+                                + "change to your task list :(.");
+                // For debug only
+                // TODO: delete before production
+                System.err.println(e.getMessage());
+            }
+        }
+
+        return botOutput;
     }
 }
