@@ -157,6 +157,8 @@ public class IttyBotty {
             }
         }
 
+        assert !botOutput.isBlank() : "Bot output not updated";
+
         return botOutput;
     }
 }
