@@ -64,7 +64,7 @@ public class InputParserTest {
 
         // Test multiple-word description
         assertEquals(new AddTaskCommand(new ToDo("buy fruits and vegetables to eat")),
-                this.parser.parseInput("todo fruits and vegetables to eat"));
+                this.parser.parseInput("todo buy fruits and vegetables to eat"));
     }
 
     @Test

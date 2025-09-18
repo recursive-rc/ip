@@ -4,9 +4,18 @@ import java.time.LocalDate;
 
 import ittybotty.OutputFormatter;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class TaskWithDeadline extends Task {
     private final LocalDate deadline;
 
+    /**
+     * Constructs a task with the given deadline.
+     *
+     * @param name Task description.
+     * @param deadline The deadline for the task.
+     */
     public TaskWithDeadline(String name, LocalDate deadline) {
         super(name);
         this.deadline = deadline;
@@ -17,7 +26,6 @@ public class TaskWithDeadline extends Task {
         return "[D]" + super.toString()
                 + " (by: " + OutputFormatter.formatDateForOutput(this.deadline)
                 + ")";
-        // TODO: change format of date output
     }
 
     @Override

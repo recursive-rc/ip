@@ -1,5 +1,8 @@
 package ittybotty.data.tasks;
 
+/**
+ * Represents a task that is either done or yet to be done.
+ */
 public abstract class Task {
     private static final String DONE_CHECKBOX = "[X]";
     private static final String UNDONE_CHECKBOX = "[ ]";
@@ -7,6 +10,12 @@ public abstract class Task {
     private final String name;
     private boolean isDone;
 
+    /**
+     * Constructs a task with the given description.
+     *
+     * <p>By default, the task is marked as undone.</p>
+     * @param name Description of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
@@ -16,6 +25,12 @@ public abstract class Task {
         return this.name;
     }
 
+    /**
+     * Marks the task as done.
+     *
+     * @throws IllegalStateException If the task is already marked
+     *                               as done.
+     */
     public void markDone() {
         if (this.isDone) {
             throw new IllegalStateException("ittybotty.data.tasks.Task " + this.name
@@ -24,6 +39,13 @@ public abstract class Task {
         this.isDone = true;
     }
 
+    /**
+     * Unmarks the task, so that it is stored as yet to be done
+     * or undone.
+     *
+     * @throws IllegalStateException If the task was undone before
+     *                               this method was called.
+     */
     public void unmarkDone() {
         if (!this.isDone) {
             throw new IllegalStateException("ittybotty.data.tasks.Task " + this.name
@@ -32,6 +54,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The string contains a checkbox indicating if the task
+     * has been done, followed by its description.</p>
+     */
     @Override
     public String toString() {
         String checkbox;
@@ -43,6 +71,16 @@ public abstract class Task {
         return checkbox + " " + this.name;
     }
 
+    /**
+     * Returns a string representation of the task to be
+     * stored in a CSV file, so that it can be easily
+     * parsed later to reconstruct an equivalent task object.
+     *
+     * <p>Uses commas as delimiters and double quotes
+     * to allow commas and other special characters in
+     * the task description. Currently, it does <strong>not</strong>
+     * properly handle double quotes in task description.</p>
+     */
     public String toCsvString() {
         return String.format("%b,\"%s\"", this.isDone, this.getName());
         // This method and its counterparts in subclass that override

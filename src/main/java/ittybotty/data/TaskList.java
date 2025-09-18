@@ -1,26 +1,47 @@
 package ittybotty.data;
 
+import ittybotty.data.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import ittybotty.data.tasks.Task;
-
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private final List<Task> tasks;
 
+    /**
+     * Constructs an empty list of tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Constructs a list of tasks from the given list.
+     *
+     * <p>Does not create a deep copy of the given list.</p>
+     * @param tasks List of tasks to store.
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Add a task to the end of the list.
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Add all tasks from the given collection to this list.
+     * @param c Collection of tasks to add.
+     * @return true if the list is changed as a result of
+     *         calling this method.
+     */
     public boolean addAll(Collection<? extends Task> c) {
         return tasks.addAll(c);
     }
@@ -34,6 +55,10 @@ public class TaskList {
         return this.tasks.remove(index - 1); // `- 1` because 1-indexed
     }
 
+    /**
+     * Returns the task at the given index (0-indexed).
+     * @param index Index of the task to return (0-indexed).
+     */
     public Task getTaskAt(int index) {
         return tasks.get(index);
     }
@@ -49,6 +74,9 @@ public class TaskList {
         return markedTask;
     }
 
+    /**
+     * Returns number of tasks in the list.
+     */
     public int size() {
         return this.tasks.size();
     }
@@ -65,6 +93,13 @@ public class TaskList {
         return unmarkedTask;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Each task is printed in a separate line, prefixed with the
+     * task's index followed by a period (such as "2." for the
+     * 2nd task).</p>
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -99,5 +134,35 @@ public class TaskList {
     @Override
     public int hashCode() {
         return this.tasks.hashCode();
+    }
+
+    public List<Task> getTasksMatching(String searchTerm) {
+        return this.tasks.stream()
+                .filter(t -> t.getName().contains(searchTerm))
+                .toList();
+    }
+
+    /**
+     * Returns a string representation of the task that
+     * includes its index (in the list, 1-indexed) at the start.
+     *
+     * <p>For use when printing a subset of the list or when
+     * printing the list in a different order, so that user
+     * can see the correct index for commands such as mark/delete.</p>
+     *
+     * @param task Task to print. Must have already been added to the
+     *             list.
+     * @throws RuntimeException If given task is not inside the task
+     *                          list.
+     */
+    public String getTaskWithIndex(Task task) {
+        if (!this.tasks.contains(task)) {
+            throw new RuntimeException("Task " + task + " not in task list.");
+            // TODO: consider creating a new exception subclass
+        }
+
+        int taskIndex = this.tasks.indexOf(task) + 1; // 1-indexed
+        assert taskIndex > 0;
+        return taskIndex + ". " + task;
     }
 }

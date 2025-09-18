@@ -2,11 +2,13 @@ package ittybotty;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import ittybotty.commands.AddTaskCommand;
 import ittybotty.commands.DeleteCommand;
 import ittybotty.commands.ExitCommand;
+import ittybotty.commands.FindCommand;
 import ittybotty.commands.ListCommand;
 import ittybotty.commands.MarkTaskCommand;
 import ittybotty.commands.UnmarkTaskCommand;
@@ -108,6 +110,10 @@ public class IttyBotty {
                         + deletedTask
                         + "\nYou have " + this.taskList.size() + " tasks remaining.");
                 hasListChanged = true;
+            } else if (command instanceof FindCommand findCommand) {
+                final String searchTerm = findCommand.getSearchTerm();
+                final List<Task> searchResults = this.taskList.getTasksMatching(searchTerm);
+                this.outputter.showSearchResults(searchResults, this.taskList);
             } else {
                 throw new IllegalStateException("Unknown user command.");
             }

@@ -4,11 +4,19 @@ import java.time.LocalDate;
 
 import ittybotty.OutputFormatter;
 
+/**
+ * Represents an event with a start and end date.
+ */
 public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
-    // TODO: convert the above to proper date/time types
 
+    /**
+     * Constructs an event.
+     * @param name Event description.
+     * @param startDate Event start date.
+     * @param endDate Event end date.
+     */
     public Event(String name, LocalDate startDate, LocalDate endDate) {
         super(name);
         this.startDate = startDate;
