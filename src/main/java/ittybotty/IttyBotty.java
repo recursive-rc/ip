@@ -148,9 +148,8 @@ public class IttyBotty {
             try {
                 this.saveManager.saveToFile(this.taskList);
             } catch (IOException e) {
-                this.outputter.printFancyOutput(
-                        "Unfortunately, we could not save this "
-                                + "change to your task list :(.");
+               botOutput += "Unfortunately, we could not save this "
+                                + "change to your task list :(.";
                 // For debug only
                 // TODO: delete before production
                 System.err.println(e.getMessage());
