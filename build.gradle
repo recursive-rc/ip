@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("ittybotty.gui.Main")
+    mainClass.set("ittybotty.Launcher")
 }
 
 checkstyle {
