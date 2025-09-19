@@ -29,6 +29,7 @@ public final class InputParser {
             "event.*";
     private static final String DELETE_COMMAND_REGEX = "delete.*";
     private static final String FIND_COMMAND_REGEX = "find\\s+\\S+";
+
     /**
      * Parses user input to get corresponding user command object.
      *

@@ -8,7 +8,7 @@ public class DeleteCommand extends UserCommand {
     private int taskIndex;
 
     /**
-     * Construct a user command to delete a particular task.
+     * Constructs a user command to delete a particular task.
      * @param taskIndex Index of the task to delete (1-indexed).
      */
     public DeleteCommand(int taskIndex) {
