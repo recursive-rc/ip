@@ -31,6 +31,11 @@ public class UnmarkTaskCommand extends UserCommand {
                 + '}';
     }
 
+    // The equals method is overridden for JUnit testing
+    // to ensure JUnit's assertEquals() works as intended.
+    // The hasCode() method is thus also overridden per
+    // the general contract for Object::hasCode.
+
     @Override
     public final boolean equals(Object o) {
         if (!(o instanceof UnmarkTaskCommand that)) {

@@ -30,6 +30,11 @@ public final class MarkTaskCommand extends UserCommand {
                 + '}';
     }
 
+    // The equals method is overridden for JUnit testing
+    // to ensure JUnit's assertEquals() works as intended.
+    // The hasCode() method is thus also overridden per
+    // the general contract for Object::hasCode.
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof MarkTaskCommand that)) {
