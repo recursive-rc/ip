@@ -84,10 +84,6 @@ public class IttyBotty {
         this.mainWindow.sendBotMessage(greeting);
     }
 
-    private void exit() {
-        this.outputter.printFancyOutput("Bye. Hope to see you again soon!");
-    }
-
     public String handleInputAndGetOutput(String userInput) {
         boolean hasListChanged;
         InputParser parser = new InputParser();
