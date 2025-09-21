@@ -1,11 +1,19 @@
 package ittybotty.data.tasks;
 
+import java.util.Comparator;
+
 /**
  * Represents a task that is either done or yet to be done.
  */
 public abstract class Task {
     private static final String DONE_CHECKBOX = "[X]";
     private static final String UNDONE_CHECKBOX = "[ ]";
+
+    private static final Comparator<Task> ALPHABETICAL_COMPARATOR =
+            Comparator.comparing(task -> task.name.toLowerCase());
+    // Must convert to lower case, because String::compareTo uses
+    // lexicographical order, not alphabetical order,
+    // so "BBBB" will be considered "smaller" than "aaaa"
 
     private final String name;
     private boolean isDone;
