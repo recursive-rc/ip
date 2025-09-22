@@ -98,6 +98,11 @@ public final class InputParser {
         } else {
             throw new IllegalArgumentException("Invalid user input");
         }
+
+        // This method is intentionally kept long because it is inappropriate to
+        // use polymorphism to handle parsing different inputs in the
+        // respective UserCommand subclasses, as that would violate the
+        // single-responsibility principle.
     }
 
     private LocalDate parseDate(String dateAsString) {
