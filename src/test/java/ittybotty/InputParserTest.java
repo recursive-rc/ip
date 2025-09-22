@@ -17,25 +17,43 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Unit tests for {@link InputParser}.
+ */
 public class InputParserTest {
 
     private InputParser parser;
 
+    /**
+     * Sets up a fresh {@link InputParser} instance before each test.
+     */
     @BeforeEach
     public void setUp() {
         this.parser = new InputParser();
     }
 
+    /**
+     * Tests that the {@code list} command is parsed into a
+     * {@link ListCommand}.
+     */
     @Test
     public void parseInput_listCommand_parsedCorrectly() {
         assertEquals(ListCommand.getInstance(), this.parser.parseInput("list"));
     }
 
+    /**
+     * Tests that the {@code bye} command is parsed into an
+     * {@link ExitCommand}.
+     */
     @Test
     public void parseInput_exitCommand_parsedCorrectly() {
         assertEquals(ExitCommand.getInstance(), this.parser.parseInput("bye"));
     }
 
+    /**
+     * Tests that the {@code mark <taskIndex>} command is parsed into a
+     * {@link MarkTaskCommand}.
+     */
     @Test
     public void parseInput_markCommand_parsedCorrectly() {
         assertEquals(new MarkTaskCommand(1), this.parser.parseInput("mark 1"));
@@ -44,6 +62,10 @@ public class InputParserTest {
                 this.parser.parseInput("mark " + Integer.MAX_VALUE));
     }
 
+    /**
+     * Tests that the {@code unmark <taskIndex>} command is parsed into an
+     * {@link UnmarkTaskCommand}.
+     */
     @Test
     public void parseInput_unmarkCommand_parsedCorrectly() {
         assertEquals(new UnmarkTaskCommand(1), this.parser.parseInput("unmark 1"));
@@ -52,6 +74,10 @@ public class InputParserTest {
                 this.parser.parseInput("unmark " + Integer.MAX_VALUE));
     }
 
+    /**
+     * Tests that the {@code todo <description>} command is parsed into
+     * an {@link AddTaskCommand} containing a {@link ToDo}.
+     */
     @Test
     public void parseInput_addTodoCommand_parsedCorrectly() {
         // Test single-letter description
@@ -67,6 +93,11 @@ public class InputParserTest {
                 this.parser.parseInput("todo buy fruits and vegetables to eat"));
     }
 
+    /**
+     * Tests that the {@code deadline <description> /by <date>} command
+     * is parsed into an {@link AddTaskCommand} containing a
+     * {@link TaskWithDeadline}.
+     */
     @Test
     public void parseInput_addDeadlineCommand_parsedCorrectly() {
         assertEquals(new AddTaskCommand(
@@ -87,6 +118,11 @@ public class InputParserTest {
                 this.parser.parseInput("deadline celebrate leap day /by 2028-02-29"));
     }
 
+    /**
+     * Tests that the {@code event <description> /from <startDate>
+     *     /to <endDate>} command is parsed into an
+     *     {@link AddTaskCommand} containing an {@link Event}.
+     */
     @Test
     public void parseInput_addEventCommand_parsedCorrectly() {
         // Single-day event
@@ -105,6 +141,10 @@ public class InputParserTest {
                 this.parser.parseInput("event abc /from 1970-01-01 /to 9999-12-31"));
     }
 
+    /**
+     * Tests that the {@code delete <taskIndex>} command is parsed into
+     * a {@link DeleteCommand}.
+     */
     @Test
     public void parseInput_deleteCommand_parsedCorrectly() {
         assertEquals(new DeleteCommand(1), this.parser.parseInput("delete 1"));
@@ -113,6 +153,10 @@ public class InputParserTest {
                 this.parser.parseInput("delete " + Integer.MAX_VALUE));
     }
 
+    /**
+     * Tests that invalid input commands throw an
+     * {@link IllegalArgumentException}.
+     */
     @Test
     public void parseInput_invalidCommand_exceptionThrown() {
         final String expectedMessage = "Invalid user input";
@@ -127,6 +171,10 @@ public class InputParserTest {
         }
     }
 
+    /**
+     * Tests that extra spaces or tab whitespace in user input are
+     * trimmed correctly.
+     */
     @Test
     public void parseInput_extraSpaces_trimsSpaces() {
         assertEquals(ListCommand.getInstance(), this.parser.parseInput("list   "));
