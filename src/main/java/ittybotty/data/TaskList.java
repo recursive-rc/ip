@@ -122,6 +122,10 @@ public class TaskList {
         return builder.toString();
     }
 
+    public void sort(Task.KeyForComparison key) {
+        this.tasks.sort(key.getComparator());
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (!(o instanceof TaskList taskList)) {

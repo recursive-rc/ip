@@ -19,6 +19,21 @@ public abstract class Task {
     private static final Comparator<Task> DATE_COMPARATOR =
             Comparator.comparing(Task::getDateForComparison);
 
+    public enum KeyForComparison {
+        NAME(Task.ALPHABETICAL_COMPARATOR),
+        DATE(Task.DATE_COMPARATOR);
+
+        private Comparator<Task> comparator;
+
+        KeyForComparison(Comparator<Task> comparator) {
+            this.comparator = comparator;
+        }
+
+        public Comparator<Task> getComparator() {
+            return this.comparator;
+        }
+    }
+
     private final String name;
     private boolean isDone;
 
