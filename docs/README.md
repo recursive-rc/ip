@@ -1,33 +1,69 @@
 # IttyBotty User Guide
 
-// Update the title above to match the actual product name
+![Image of IttyBotty's UI](Ui.png)
 
-// Product screenshot goes here
+A chatbot that helps you keep track of your tasks!
 
-// Product intro goes here
+## Adding ToDo
 
-## Adding deadlines
+A ToDo is a task _without_ a deadline.
 
-// Describe the action and its outcome.
+Command: `todo <description>`
 
-// Give examples of usage
+- The `<description>` can be multiple words long, but should not contain
+  any double quotation marks.
 
-Example: `keyword (optional arguments)`
+Example: `todo borrow book`
 
-// A description of the expected outcome goes here
+## Adding tasks with deadlines
 
-```
-expected output
-```
+Add a task with a deadline
 
-## Feature ABC
+Command: `deadline <description> /by <deadline>`
 
-// Feature details
+- The `<description>` can be multiple words long, but should not contain
+  any double quotation marks.
+- The `<deadline>` should be in the format `YYYY-MM-DD`. For example,
+  `2025-01-01` is acceptable, but `25-1-1` or `2025/01/01` are not.
 
+Example: `deadline return book /by 2025-10-25`
 
-## Feature XYZ
+## Adding events
 
-// Feature details
+Add an event with a start and end date
+
+Command: `event <description> /from <start date> /to <end date>`
+
+- The `<description>` can be multiple words long, but should not contain
+  any double quotation marks.
+- The `<start date>` and `<end date>` should be in the format 
+  `YYYY-MM-DD`. For example, `2025-01-01` is acceptable, but `25-1-1` 
+  or `2025/01/01` are not.
+
+Example: `event book giveaway /from 2025-11-20 /to 2025-11-27`
+
+## Listing tasks
+
+List all current tasks
+
+Command: `list`
+
+## Searching for tasks
+
+Find tasks whose description includes the given search term.
+
+Command: `find <search term>`
+
+Example: `find book`
+
+## Marking task as done
+
+Command: `mark <task index>`
+
+Use the `list` or `find` commands to find the task index.
+
+You can undo marking a task as done using the command 
+`unmark <task index>`.
 
 ## Image Credits
 
