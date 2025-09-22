@@ -1,5 +1,12 @@
 package ittybotty.commands;
 
+import java.io.IOException;
+
+import ittybotty.OutputFormatter;
+import ittybotty.SaveFileManager;
+import ittybotty.data.TaskList;
+import ittybotty.data.tasks.Task;
+
 /**
  * Represents a user command to mark a particular task as done.
  */
@@ -30,6 +37,11 @@ public final class MarkTaskCommand extends UserCommand {
                 + '}';
     }
 
+    // The equals method is overridden for JUnit testing
+    // to ensure JUnit's assertEquals() works as intended.
+    // The hasCode() method is thus also overridden per
+    // the general contract for Object::hasCode.
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof MarkTaskCommand that)) {
@@ -42,5 +54,22 @@ public final class MarkTaskCommand extends UserCommand {
     @Override
     public int hashCode() {
         return this.taskIndex;
+    }
+
+    @Override
+    public CommandResult run(TaskList taskList, OutputFormatter formatter,
+                             SaveFileManager saveManager) {
+        Task markedTask = taskList.markTask(this.taskIndex);
+        // TODO: handle IndexOutOfBoundsException
+        String botOutput = "Good job! The task below is recorded as done!\n"
+                + markedTask;
+
+        try {
+            saveManager.saveToFile(taskList);
+        } catch (IOException e) {
+            botOutput += formatter.getFileIoErrorMessage();
+        }
+
+        return new CommandResult(botOutput);
     }
 }

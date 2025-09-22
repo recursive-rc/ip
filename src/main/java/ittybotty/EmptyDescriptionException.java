@@ -1,7 +1,7 @@
 package ittybotty;
 
 /**
- * RuntimeException for when user input for adding a task
+ * Represents an error when user input for adding a task
  * is missing a description or has an empty one.
  */
 public class EmptyDescriptionException extends RuntimeException {

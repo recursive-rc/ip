@@ -1,5 +1,9 @@
 package ittybotty.commands;
 
+import ittybotty.OutputFormatter;
+import ittybotty.SaveFileManager;
+import ittybotty.data.TaskList;
+
 /**
  * Represents a command requesting to exit the application.
  *
@@ -24,5 +28,11 @@ public final class ExitCommand extends UserCommand {
     @Override
     public String toString() {
         return "ittybotty.commands.ExitCommand{}";
+    }
+
+    @Override
+    public CommandResult run(TaskList taskList, OutputFormatter formatter,
+                             SaveFileManager saveManager) {
+        return new CommandResult("", true);
     }
 }

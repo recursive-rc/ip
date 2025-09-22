@@ -1,5 +1,12 @@
 package ittybotty.commands;
 
+import java.io.IOException;
+
+import ittybotty.OutputFormatter;
+import ittybotty.SaveFileManager;
+import ittybotty.data.TaskList;
+import ittybotty.data.tasks.Task;
+
 /**
  * Represents a command from the user to delete a particular
  * task.
@@ -8,7 +15,7 @@ public class DeleteCommand extends UserCommand {
     private int taskIndex;
 
     /**
-     * Construct a user command to delete a particular task.
+     * Constructs a user command to delete a particular task.
      * @param taskIndex Index of the task to delete (1-indexed).
      */
     public DeleteCommand(int taskIndex) {
@@ -30,6 +37,11 @@ public class DeleteCommand extends UserCommand {
                 + '}';
     }
 
+    // The equals method is overridden for JUnit testing
+    // to ensure JUnit's assertEquals() works as intended.
+    // The hasCode() method is thus also overridden per
+    // the general contract for Object::hasCode.
+
     @Override
     public final boolean equals(Object o) {
         if (!(o instanceof DeleteCommand that)) {
@@ -42,5 +54,20 @@ public class DeleteCommand extends UserCommand {
     @Override
     public int hashCode() {
         return this.taskIndex;
+    }
+
+    @Override
+    public CommandResult run(TaskList taskList, OutputFormatter formatter,
+                             SaveFileManager saveManager) {
+        final Task deletedTask = taskList.removeTask(this.taskIndex);
+        String botOutput = "Successfully deleted:\n" + deletedTask
+                + "\nYou have " + taskList.size() + " tasks remaining.";
+        try {
+            saveManager.saveToFile(taskList);
+        } catch (IOException e) {
+            botOutput += formatter.getFileIoErrorMessage();
+        }
+
+        return new CommandResult(botOutput);
     }
 }

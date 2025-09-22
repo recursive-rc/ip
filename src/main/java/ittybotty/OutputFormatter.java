@@ -15,6 +15,8 @@ import ittybotty.data.tasks.Task;
 public class OutputFormatter {
     private static final DateTimeFormatter DEFAULT_DATE_FORMAT =
             DateTimeFormatter.ofPattern("EEE d MMM uuuu");
+    private static final String FILE_IO_ERROR_MSG = "Unfortunately, we could not "
+            + "save this change to your task list :(.";
     private DateTimeFormatter dateTimeFormatter = OutputFormatter.DEFAULT_DATE_FORMAT;
 
     public void setDateTimeFormatter(DateTimeFormatter dateTimeFormatter) {
@@ -50,5 +52,12 @@ public class OutputFormatter {
             }
         }
         return output;
+    }
+
+    public String getFileIoErrorMessage() {
+        // This is a separate method rather than making
+        // the field public static final to allow for easier updates
+        // in the future to, for example, handle internationalization
+        return OutputFormatter.FILE_IO_ERROR_MSG;
     }
 }

@@ -30,14 +30,14 @@ public class TaskList {
     }
 
     /**
-     * Add a task to the end of the list.
+     * Adds a task to the end of the list.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
     /**
-     * Add all tasks from the given collection to this list.
+     * Adds all tasks from the given collection to this list.
      * @param c Collection of tasks to add.
      * @return true if the list is changed as a result of
      *         calling this method.
@@ -162,7 +162,7 @@ public class TaskList {
         }
 
         int taskIndex = this.tasks.indexOf(task) + 1; // 1-indexed
-        assert taskIndex > 0;
+        assert 1 <= taskIndex && taskIndex <= this.size() : "Invalid task index found";
         return taskIndex + ". " + task;
     }
 }
