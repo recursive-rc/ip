@@ -162,7 +162,7 @@ public class TaskList {
         }
 
         int taskIndex = this.tasks.indexOf(task) + 1; // 1-indexed
-        assert taskIndex > 0;
+        assert 1 <= taskIndex && taskIndex <= this.size() : "Invalid task index found";
         return taskIndex + ". " + task;
     }
 }

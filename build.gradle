@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("ittybotty.gui.Main")
+    mainClass.set("ittybotty.Launcher")
 }
 
 checkstyle {
@@ -57,5 +57,6 @@ shadowJar {
 }
 
 run{
+    enableAssertions = true
     standardInput = System.in
 }

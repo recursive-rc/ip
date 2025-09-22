@@ -29,41 +29,6 @@ public class OutputFormatter {
     }
 
     /**
-     * Prints output with indents and surrounded by
-     * horizontal lines.
-     *
-     * @param output String to be formatted.
-     */
-    public void printFancyOutput(String output) {
-        this.printIndent();
-        this.printHorizontalLine();
-        for (String line : output.split("\n")) {
-            this.printIndent();
-            System.out.println(line);
-        }
-        this.printIndent();
-        this.printHorizontalLine();
-    }
-
-    /**
-     * Prints a horizontal line of 60 underscores,
-     * followed by a new line.
-     * Does not include an indent at the front,
-     * use {@link OutputFormatter#printIndent()} for that.
-     */
-    private void printHorizontalLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Prints an indent of four spaces,
-     * <strong>without</strong> a new line at the end.
-     */
-    private void printIndent() {
-        System.out.print("    ");
-    }
-
-    /**
      * Returns String representation of search results.
      *
      * @param searchResults The search results only. All search results
