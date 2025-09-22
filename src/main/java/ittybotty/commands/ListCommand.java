@@ -1,5 +1,9 @@
 package ittybotty.commands;
 
+import ittybotty.OutputFormatter;
+import ittybotty.SaveFileManager;
+import ittybotty.data.TaskList;
+
 /**
  * Represents a command from the user requesting for a list
  * of current tasks.
@@ -25,5 +29,11 @@ public final class ListCommand extends UserCommand {
     @Override
     public String toString() {
         return "ittybotty.commands.ListCommand{}";
+    }
+
+    @Override
+    public CommandResult run(TaskList taskList, OutputFormatter formatter,
+                             SaveFileManager saveManager) {
+        return new CommandResult(taskList.toString());
     }
 }

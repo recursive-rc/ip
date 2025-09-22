@@ -1,5 +1,12 @@
 package ittybotty.commands;
 
+import java.io.IOException;
+
+import ittybotty.OutputFormatter;
+import ittybotty.SaveFileManager;
+import ittybotty.data.TaskList;
+import ittybotty.data.tasks.Task;
+
 /**
  * Represents a command from the user to delete a particular
  * task.
@@ -47,5 +54,20 @@ public class DeleteCommand extends UserCommand {
     @Override
     public int hashCode() {
         return this.taskIndex;
+    }
+
+    @Override
+    public CommandResult run(TaskList taskList, OutputFormatter formatter,
+                             SaveFileManager saveManager) {
+        final Task deletedTask = taskList.removeTask(this.taskIndex);
+        String botOutput = "Successfully deleted:\n" + deletedTask
+                + "\nYou have " + taskList.size() + " tasks remaining.";
+        try {
+            saveManager.saveToFile(taskList);
+        } catch (IOException e) {
+            botOutput += formatter.getFileIoErrorMessage();
+        }
+
+        return new CommandResult(botOutput);
     }
 }

@@ -1,5 +1,12 @@
 package ittybotty.commands;
 
+import java.util.List;
+
+import ittybotty.OutputFormatter;
+import ittybotty.SaveFileManager;
+import ittybotty.data.TaskList;
+import ittybotty.data.tasks.Task;
+
 /**
  * Represents a user command to find a task
  * by searching with a keyword.
@@ -43,5 +50,15 @@ public class FindCommand extends UserCommand {
     @Override
     public int hashCode() {
         return this.searchTerm.hashCode();
+    }
+
+    @Override
+    public CommandResult run(TaskList taskList, OutputFormatter formatter,
+                             SaveFileManager saveManager) {
+        List<Task> searchResults = taskList.getTasksMatching(this.searchTerm);
+        String botOutput = formatter.getFormattedSearchResults(searchResults,
+                taskList);
+        return new CommandResult(botOutput);
+
     }
 }

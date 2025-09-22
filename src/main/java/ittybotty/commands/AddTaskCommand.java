@@ -1,5 +1,10 @@
 package ittybotty.commands;
 
+import java.io.IOException;
+
+import ittybotty.OutputFormatter;
+import ittybotty.SaveFileManager;
+import ittybotty.data.TaskList;
 import ittybotty.data.tasks.Task;
 
 /**
@@ -44,5 +49,23 @@ public final class AddTaskCommand extends UserCommand {
     @Override
     public int hashCode() {
         return this.taskToAdd.hashCode();
+    }
+
+    @Override
+    public CommandResult run(TaskList taskList, OutputFormatter formatter,
+                             SaveFileManager saveManager) {
+        taskList.addTask(this.taskToAdd);
+        String botOutput = "Successfully added the following task:\n"
+                + this.taskToAdd
+                + "\nYou now have " + taskList.size()
+                + " tasks stored.";
+
+        try {
+            saveManager.saveToFile(taskList);
+        } catch (IOException e) {
+            botOutput += formatter.getFileIoErrorMessage();
+        }
+
+        return new CommandResult(botOutput);
     }
 }
