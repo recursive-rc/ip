@@ -24,6 +24,14 @@ public class Event extends Task {
     }
 
     @Override
+    public LocalDate getDateForComparison() {
+        return this.startDate;
+        // An event with an earlier start date is likely to be more
+        // urgent than one with a later start date,
+        // regardless of their end dates.
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString()
                 + " (from: " + OutputFormatter.formatDateForOutput(this.startDate)

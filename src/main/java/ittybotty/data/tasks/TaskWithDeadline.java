@@ -22,6 +22,11 @@ public class TaskWithDeadline extends Task {
     }
 
     @Override
+    public LocalDate getDateForComparison() {
+        return this.deadline;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString()
                 + " (by: " + OutputFormatter.formatDateForOutput(this.deadline)

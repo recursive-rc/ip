@@ -1,5 +1,7 @@
 package ittybotty.data.tasks;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Comparator;
 
 /**
@@ -14,6 +16,8 @@ public abstract class Task {
     // Must convert to lower case, because String::compareTo uses
     // lexicographical order, not alphabetical order,
     // so "BBBB" will be considered "smaller" than "aaaa"
+    private static final Comparator<Task> DATE_COMPARATOR =
+            Comparator.comparing(Task::getDateForComparison);
 
     private final String name;
     private boolean isDone;
@@ -32,6 +36,20 @@ public abstract class Task {
     public String getName() {
         return this.name;
     }
+
+    /**
+     * Returns a LocalDate object to be used for comparison.
+     *
+     * <p>If the task has no date or multiple dates, then it should
+     * return a local date as appropriate that best represents
+     * the urgency of the task.</p>
+     *
+     * <p>It should <strong>not</strong> return {@code null}, because
+     * {@link LocalDate#compareTo(ChronoLocalDate)} will throw a
+     * {@link NullPointerException} when comparing with
+     * {@code null}.</p>
+     */
+    public abstract LocalDate getDateForComparison();
 
     /**
      * Marks the task as done.
