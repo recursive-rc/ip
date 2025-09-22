@@ -30,14 +30,14 @@ public class TaskList {
     }
 
     /**
-     * Add a task to the end of the list.
+     * Adds a task to the end of the list.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
     /**
-     * Add all tasks from the given collection to this list.
+     * Adds all tasks from the given collection to this list.
      * @param c Collection of tasks to add.
      * @return true if the list is changed as a result of
      *         calling this method.

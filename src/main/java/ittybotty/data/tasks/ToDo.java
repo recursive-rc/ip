@@ -7,7 +7,7 @@ package ittybotty.data.tasks;
 public class ToDo extends Task {
     /**
      * Constructs a task without a deadline nor any other
-     *  * dates/times associated with it.
+     * dates/times associated with it.
      * @param name The ToDo description.
      */
     public ToDo(String name) {

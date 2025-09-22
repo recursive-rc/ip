@@ -1,5 +1,12 @@
 package ittybotty.commands;
 
+import java.io.IOException;
+
+import ittybotty.OutputFormatter;
+import ittybotty.SaveFileManager;
+import ittybotty.data.TaskList;
+import ittybotty.data.tasks.Task;
+
 /**
  * Represents a user command to unmark a particular task so that it
  * is labelled as undone.
@@ -31,6 +38,11 @@ public class UnmarkTaskCommand extends UserCommand {
                 + '}';
     }
 
+    // The equals method is overridden for JUnit testing
+    // to ensure JUnit's assertEquals() works as intended.
+    // The hasCode() method is thus also overridden per
+    // the general contract for Object::hasCode.
+
     @Override
     public final boolean equals(Object o) {
         if (!(o instanceof UnmarkTaskCommand that)) {
@@ -43,5 +55,22 @@ public class UnmarkTaskCommand extends UserCommand {
     @Override
     public int hashCode() {
         return this.taskIndex;
+    }
+
+    @Override
+    public CommandResult run(TaskList taskList, OutputFormatter formatter,
+                             SaveFileManager saveManager) {
+        Task taskToUnmark = taskList.unmarkTask(this.taskIndex);
+        // TODO: handle IndexOutOfBoundsException
+        String botOutput = "Alright, The task below has been unmarked!\n"
+                + taskToUnmark;
+
+        try {
+            saveManager.saveToFile(taskList);
+        } catch (IOException e) {
+            botOutput += formatter.getFileIoErrorMessage();
+        }
+
+        return new CommandResult(botOutput);
     }
 }
